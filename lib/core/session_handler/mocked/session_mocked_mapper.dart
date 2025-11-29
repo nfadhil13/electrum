@@ -5,7 +5,7 @@ class SessionMockedMapper implements JSONMapper<SessionMocked> {
   static const String userIdKey = 'userId';
 
   @override
-  SessionMocked fromJson(Map<String, dynamic> json) {
+  SessionMocked fromJson(dynamic json) {
     return SessionMocked(userId: json[userIdKey] as String);
   }
 
