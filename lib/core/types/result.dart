@@ -1,0 +1,32 @@
+import 'package:electrum/core/types/exception/base.dart';
+import 'package:electrum/core/types/repo_result.dart';
+import 'package:equatable/equatable.dart';
+
+sealed class Resource<T> extends Equatable {
+  const Resource();
+}
+
+class Success<T> extends Resource<T> {
+  final T data;
+
+  const Success({required this.data});
+
+  @override
+  List<Object?> get props => [data];
+}
+
+class Failure<T> extends Resource<T> {
+  final BaseException exception;
+
+  const Failure({required this.exception});
+
+  @override
+  List<Object?> get props => [exception];
+}
+
+extension RepoResultExt<T> on Future<RepoResult<T>> {
+  Future<Resource<T>> get asResource async {
+    final result = await this;
+    return Success(data: result.data);
+  }
+}
