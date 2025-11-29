@@ -1,0 +1,67 @@
+@startuml Database Schema
+
+class User {
+    id: UUID
+    username: String
+    email: String
+    password: String
+    createdAt: DateTime
+    updatedAt: DateTime
+}
+
+class Promotion {
+    id: UUID
+    title: String
+    description: String
+    validUntil: DateTime
+}
+
+class Package {
+    id: UUID
+    name: String
+    description: String
+    dailyPrice: Decimal
+    weeklyPrice: Decimal
+    monthlyPrice: Decimal
+    terms: List<String>
+    createdAt: DateTime
+    updatedAt: DateTime
+}
+
+class Bike {
+    id: UUID
+    name: String
+    imageUrl: String
+    rangeInKm: Decimal
+    topSpeedInKmH: Decimal
+    chargingTimeInHours: Decimal
+    weightInKg: Decimal
+    motorPowerInKw: Decimal
+    availability: Availability
+    description: String
+    createdAt: DateTime
+    updatedAt: DateTime
+}
+
+class Interest {
+    id: UUID
+    userId: UUID
+    bikeId: UUID
+    preferedStartDate: DateTime
+    pickUpArea: String
+    contact: String
+    createdAt: DateTime
+    updatedAt: DateTime
+}
+
+enum Availability {
+    AVAILABLE,
+    UNAVAILABLE,
+    LIMITED,
+}
+
+
+User "1" -- "0..*" Interest : submits >
+Bike "1" -- "0..*" Interest : is interested in >
+Bike "0..*" -- "1" Availability : is available in >
+@enduml
