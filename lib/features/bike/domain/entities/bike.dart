@@ -1,10 +1,11 @@
+import 'package:electrum/core/types/image.dart';
 import 'package:equatable/equatable.dart';
 import 'availability.dart';
 
 class Bike extends Equatable {
   final String id;
   final String name;
-  final String imageUrl;
+  final ElectrumImage image;
   final double rangeInKm;
   final double topSpeedInKmH;
   final double chargingTimeInHours;
@@ -18,7 +19,7 @@ class Bike extends Equatable {
   const Bike({
     required this.id,
     required this.name,
-    required this.imageUrl,
+    required this.image,
     required this.rangeInKm,
     required this.topSpeedInKmH,
     required this.chargingTimeInHours,
@@ -32,18 +33,17 @@ class Bike extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        name,
-        imageUrl,
-        rangeInKm,
-        topSpeedInKmH,
-        chargingTimeInHours,
-        weightInKg,
-        motorPowerInKw,
-        availability,
-        description,
-        createdAt,
-        updatedAt,
-      ];
+    id,
+    name,
+    image,
+    rangeInKm,
+    topSpeedInKmH,
+    chargingTimeInHours,
+    weightInKg,
+    motorPowerInKw,
+    availability,
+    description,
+    createdAt,
+    updatedAt,
+  ];
 }
-
