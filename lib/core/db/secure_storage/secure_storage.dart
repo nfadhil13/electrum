@@ -44,3 +44,4 @@ class SecureStorageImpl implements SecureStorage {
     return saveString(key, jsonEncode(value));
   }
 }
+
