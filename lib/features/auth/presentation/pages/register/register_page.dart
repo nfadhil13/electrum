@@ -83,6 +83,7 @@ class _FormContent extends StatelessWidget {
                 context.showSuccessSnackbar(
                   context.translations.registerSuccess,
                 );
+                context.go(AppRoutes.home);
               }
               if (state is RegisterError) {
                 form.setError(state.errors);

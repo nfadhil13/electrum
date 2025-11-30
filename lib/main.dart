@@ -4,10 +4,10 @@ import 'package:electrum/core/service_locator/service_locator.dart';
 import 'package:electrum/core/ui/styles/style.dart';
 import 'package:electrum/core/localization/generated/strings.g.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   configureDependencies(AppEnvironment.mocked);
+
   runApp(const MyApp());
 }
 
@@ -22,11 +22,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp.router(
             title: 'Flutter Demo',
             routerConfig: AppRouter.router,
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
+
             supportedLocales: AppLocaleUtils.supportedLocales,
             locale: TranslationProvider.of(context).flutterLocale,
             builder: (context, child) =>

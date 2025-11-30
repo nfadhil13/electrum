@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:electrum/core/ext/color.dart';
 import 'package:electrum/core/ui/styles/style.dart';
 import 'package:flutter/material.dart';
 
@@ -87,7 +88,7 @@ class _ElectrumLoadingContainerState extends State<ElectrumLoadingContainer> {
     final colors = context.colors;
 
     return Material(
-      color: widget.backgroundColor ?? colors.background.withOpacity(0.7),
+      color: widget.backgroundColor ?? colors.background.applyOpacity(0.7),
       child: Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(

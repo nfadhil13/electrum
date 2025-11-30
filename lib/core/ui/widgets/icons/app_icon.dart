@@ -9,11 +9,18 @@ class AppIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     return Container(
+      width: size,
+      height: size,
       decoration: BoxDecoration(
-        color: context.colors.primary,
-        shape: BoxShape.circle,
+        color: colors.primary,
+        borderRadius: BorderRadius.circular(8),
       ),
-      child: Icon(Icons.person, size: size),
+      child: Center(
+        child: Text(
+          '⚡',
+          style: TextStyle(fontSize: size * 0.6),
+        ),
+      ),
     );
   }
 }

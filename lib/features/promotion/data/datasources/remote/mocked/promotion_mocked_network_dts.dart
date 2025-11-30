@@ -1,4 +1,5 @@
 import 'package:electrum/core/env/environment.dart';
+import 'package:electrum/core/types/image.dart';
 import 'package:electrum/features/promotion/data/datasources/promotion_network_dts.dart';
 import 'package:electrum/features/promotion/domain/entities/promotion.dart';
 import 'package:injectable/injectable.dart';
@@ -15,6 +16,9 @@ class PromotionMockedNetworkDts implements PromotionNetworkDts {
         description:
             'New riders get 20% off their first monthly rental. Use code WELCOME20',
         validUntil: DateTime(2025, 12, 31),
+        image: ElectrumImageNetwork(
+          url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
+        ),
       ),
       Promotion(
         id: '2',
@@ -22,6 +26,9 @@ class PromotionMockedNetworkDts implements PromotionNetworkDts {
         description:
             'Rent for the weekend and get an extra day free. Available Fri-Mon',
         validUntil: DateTime(2025, 11, 30),
+        image: ElectrumImageNetwork(
+          url: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800',
+        ),
       ),
       Promotion(
         id: '3',
@@ -29,6 +36,9 @@ class PromotionMockedNetworkDts implements PromotionNetworkDts {
         description:
             'Both you and your friend get \$50 credit when they complete their first rental',
         validUntil: DateTime(2026, 12, 31),
+        image: ElectrumImageNetwork(
+          url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
+        ),
       ),
     ]);
   }

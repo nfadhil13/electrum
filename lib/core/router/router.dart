@@ -1,5 +1,6 @@
 import 'package:electrum/features/auth/presentation/pages/login/login_page.dart';
 import 'package:electrum/features/auth/presentation/pages/register/register_page.dart';
+import 'package:electrum/features/home/presentation/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,6 +20,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.register,
         builder: (context, state) => RegisterPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.home,
+        builder: (context, state) => const HomePage(),
       ),
     ],
   );

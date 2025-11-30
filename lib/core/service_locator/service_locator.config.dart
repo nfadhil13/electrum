@@ -38,6 +38,8 @@ import 'package:electrum/features/auth/domain/usecases/register_usecase.dart'
     as _i741;
 import 'package:electrum/features/auth/presentation/cubits/login/login_cubit.dart'
     as _i903;
+import 'package:electrum/features/auth/presentation/cubits/logout/logout_cubit.dart'
+    as _i377;
 import 'package:electrum/features/auth/presentation/cubits/register/register_cubit.dart'
     as _i657;
 import 'package:electrum/features/bike/data/datasources/bike_network_dts.dart'
@@ -72,6 +74,10 @@ import 'package:electrum/features/promotion/data/repositories/promotion_repo_imp
     as _i14;
 import 'package:electrum/features/promotion/domain/repositories/promotion_repo.dart'
     as _i76;
+import 'package:electrum/features/promotion/domain/usecases/get_promotions_usecase.dart'
+    as _i1036;
+import 'package:electrum/features/promotion/presentation/cubits/promotion_list/promotion_list_cubit.dart'
+    as _i467;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -165,8 +171,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i903.LoginCubit>(
       () => _i903.LoginCubit(gh<_i132.LoginUsecase>()),
     );
+    gh.factory<_i1036.GetPromotionsUsecase>(
+      () => _i1036.GetPromotionsUsecase(
+        gh<_i700.SessionHandler>(),
+        gh<_i76.PromotionRepo>(),
+      ),
+    );
+    gh.factory<_i377.LogoutCubit>(
+      () => _i377.LogoutCubit(gh<_i410.LogoutUsecase>()),
+    );
     gh.factory<_i657.RegisterCubit>(
       () => _i657.RegisterCubit(gh<_i741.RegisterUsecase>()),
+    );
+    gh.factory<_i467.PromotionListCubit>(
+      () => _i467.PromotionListCubit(gh<_i1036.GetPromotionsUsecase>()),
     );
     return this;
   }

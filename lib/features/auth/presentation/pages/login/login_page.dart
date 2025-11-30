@@ -81,6 +81,7 @@ class _FormContent extends StatelessWidget {
             listener: (context, state) {
               if (state is LoginSuccess) {
                 context.showSuccessSnackbar(context.translations.loginSuccess);
+                context.go(AppRoutes.home);
               }
               if (state is LoginError) {
                 form.setError(state.errors);
