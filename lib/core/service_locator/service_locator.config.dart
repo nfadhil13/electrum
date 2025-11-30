@@ -1,0 +1,145 @@
+// dart format width=80
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+// **************************************************************************
+// InjectableConfigGenerator
+// **************************************************************************
+
+// ignore_for_file: type=lint
+// coverage:ignore-file
+
+// ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:electrum/core/db/secure_storage/secure_storage.dart' as _i242;
+import 'package:electrum/core/service_locator/service_locator.dart' as _i233;
+import 'package:electrum/core/session_handler/mocked/session_handler_mocked_impl.dart'
+    as _i415;
+import 'package:electrum/core/session_handler/mocked/session_mocked_mapper.dart'
+    as _i179;
+import 'package:electrum/core/session_handler/session.dart' as _i700;
+import 'package:electrum/features/auth/data/datasources/auth_local_dts.dart'
+    as _i464;
+import 'package:electrum/features/auth/data/datasources/auth_network_dts.dart'
+    as _i541;
+import 'package:electrum/features/auth/data/datasources/local/auth_local_dts_impl.dart'
+    as _i86;
+import 'package:electrum/features/auth/data/datasources/local/mapper/user_entity_local_mapper.dart'
+    as _i874;
+import 'package:electrum/features/auth/data/datasources/remote/mocked/auth_mocked_network_dts.dart'
+    as _i891;
+import 'package:electrum/features/auth/data/repositories/auth_repo_impl.dart'
+    as _i920;
+import 'package:electrum/features/auth/domain/repositories/auth_repo.dart'
+    as _i914;
+import 'package:electrum/features/bike/data/datasources/bike_network_dts.dart'
+    as _i328;
+import 'package:electrum/features/bike/data/datasources/remote/mocked/bike_mocked_network_dts.dart'
+    as _i1073;
+import 'package:electrum/features/bike/data/repositories/bike_repo_impl.dart'
+    as _i718;
+import 'package:electrum/features/bike/domain/repositories/bike_repo.dart'
+    as _i802;
+import 'package:electrum/features/interest/data/datasources/interest_network_dts.dart'
+    as _i297;
+import 'package:electrum/features/interest/data/datasources/remote/mocked/interest_mocked_network_dts.dart'
+    as _i781;
+import 'package:electrum/features/interest/data/repositories/interest_repo_impl.dart'
+    as _i951;
+import 'package:electrum/features/interest/domain/repositories/interest_repo.dart'
+    as _i912;
+import 'package:electrum/features/package/data/datasources/package_network_dts.dart'
+    as _i884;
+import 'package:electrum/features/package/data/datasources/remote/mocked/package_mocked_network_dts.dart'
+    as _i108;
+import 'package:electrum/features/package/data/repositories/package_repo_impl.dart'
+    as _i115;
+import 'package:electrum/features/package/domain/repositories/package_repo.dart'
+    as _i369;
+import 'package:electrum/features/promotion/data/datasources/promotion_network_dts.dart'
+    as _i906;
+import 'package:electrum/features/promotion/data/datasources/remote/mocked/promotion_mocked_network_dts.dart'
+    as _i495;
+import 'package:electrum/features/promotion/data/repositories/promotion_repo_impl.dart'
+    as _i14;
+import 'package:electrum/features/promotion/domain/repositories/promotion_repo.dart'
+    as _i76;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
+import 'package:get_it/get_it.dart' as _i174;
+import 'package:injectable/injectable.dart' as _i526;
+
+const String _mocked = 'mocked';
+
+extension GetItInjectableX on _i174.GetIt {
+  // initializes the registration of main-scope dependencies inside of GetIt
+  _i174.GetIt init({
+    String? environment,
+    _i526.EnvironmentFilter? environmentFilter,
+  }) {
+    final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final coreModule = _$CoreModule();
+    gh.factory<_i558.FlutterSecureStorage>(
+      () => coreModule.getFlutterSecureStorage(),
+    );
+    gh.factory<_i179.SessionMockedMapper>(() => _i179.SessionMockedMapper());
+    gh.factory<_i874.UserEntityLocalMapper>(
+      () => _i874.UserEntityLocalMapper(),
+    );
+    gh.lazySingleton<_i297.InterestNetworkDts>(
+      () => _i781.InterestMockedNetworkDts(),
+      registerFor: {_mocked},
+    );
+    gh.lazySingleton<_i328.BikeNetworkDts>(
+      () => _i1073.BikeMockedNetworkDts(),
+      registerFor: {_mocked},
+    );
+    gh.lazySingleton<_i242.SecureStorage>(
+      () => _i242.SecureStorageImpl(gh<_i558.FlutterSecureStorage>()),
+    );
+    gh.factory<_i464.AuthLocalDts>(
+      () => _i86.AuthLocalDtsImpl(
+        gh<_i242.SecureStorage>(),
+        gh<_i874.UserEntityLocalMapper>(),
+      ),
+    );
+    gh.factory<_i802.BikeRepo>(
+      () => _i718.BikeRepoImpl(gh<_i328.BikeNetworkDts>()),
+    );
+    gh.lazySingleton<_i884.PackageNetworkDts>(
+      () => _i108.PackageMockedNetworkDts(),
+      registerFor: {_mocked},
+    );
+    gh.factory<_i369.PackageRepo>(
+      () => _i115.PackageRepoImpl(gh<_i884.PackageNetworkDts>()),
+    );
+    gh.factory<_i912.InterestRepo>(
+      () => _i951.InterestRepoImpl(gh<_i297.InterestNetworkDts>()),
+    );
+    gh.lazySingleton<_i541.AuthNetworkDts>(
+      () => _i891.AuthMockedNetworkDts(),
+      registerFor: {_mocked},
+    );
+    gh.lazySingleton<_i906.PromotionNetworkDts>(
+      () => _i495.PromotionMockedNetworkDts(),
+      registerFor: {_mocked},
+    );
+    gh.lazySingleton<_i700.SessionHandler>(
+      () => _i415.SessionHandlerMockedImpl(
+        gh<_i242.SecureStorage>(),
+        gh<_i179.SessionMockedMapper>(),
+      ),
+      registerFor: {_mocked},
+    );
+    gh.factory<_i914.AuthRepo>(
+      () => _i920.AuthRepoImpl(
+        gh<_i541.AuthNetworkDts>(),
+        gh<_i464.AuthLocalDts>(),
+        gh<_i700.SessionHandler>(),
+      ),
+    );
+    gh.factory<_i76.PromotionRepo>(
+      () => _i14.PromotionRepoImpl(gh<_i906.PromotionNetworkDts>()),
+    );
+    return this;
+  }
+}
+
+class _$CoreModule extends _i233.CoreModule {}
