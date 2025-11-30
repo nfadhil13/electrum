@@ -148,6 +148,7 @@ extension TextExtenstion on Text {
 
 extension AppTextStylesExtension on TextStyle {
   TextStyle applyColor(Color color) => copyWith(color: color);
-  TextStyle get bold => copyWith(fontWeight: FontWeight.w500, height: 1.5);
+  TextStyle get medium => copyWith(fontWeight: FontWeight.w600, height: 1.5);
+  TextStyle get bold => copyWith(fontWeight: FontWeight.bold, height: 1.5);
   TextStyle get regular => copyWith(fontWeight: FontWeight.w400);
 }
