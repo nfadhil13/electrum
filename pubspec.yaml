@@ -22,8 +22,8 @@ dependencies:
   bloc: ^9.1.0
   flutter_bloc: ^9.1.1
   flutter_secure_storage: ^9.2.4
-  flutter_localization: ^0.3.3
-  intl: ^0.20.2
+  slang: ^4.11.0
+  slang_flutter: ^4.11.0
 
 dev_dependencies:
   injectable_generator: ^2.7.0

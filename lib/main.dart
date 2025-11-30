@@ -1,9 +1,10 @@
 import 'package:electrum/core/env/environment.dart';
-import 'package:electrum/core/localization/app_localizations.dart';
 import 'package:electrum/core/router/router.dart';
 import 'package:electrum/core/service_locator/service_locator.dart';
 import 'package:electrum/core/ui/styles/style.dart';
+import 'package:electrum/core/localization/generated/strings.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   configureDependencies(AppEnvironment.mocked);
@@ -15,13 +16,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Flutter Demo',
-      routerConfig: AppRouter.router,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      builder: (context, child) =>
-          ElectrumStyleProvider(child: child ?? const SizedBox()),
+    return TranslationProvider(
+      child: Builder(
+        builder: (context) {
+          return MaterialApp.router(
+            title: 'Flutter Demo',
+            routerConfig: AppRouter.router,
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: AppLocaleUtils.supportedLocales,
+            locale: TranslationProvider.of(context).flutterLocale,
+            builder: (context, child) =>
+                ElectrumStyleProvider(child: child ?? const SizedBox()),
+          );
+        },
+      ),
     );
   }
 }
