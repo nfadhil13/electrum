@@ -53,9 +53,13 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                   onPressed: state.isLoading
                       ? null
                       : () => context.read<LogoutCubit>().logout(),
-                  icon: Icon(Icons.logout, size: 16, color: colors.onSurface),
+                  icon: Icon(
+                    Icons.logout_outlined,
+                    size: 16,
+                    color: colors.onSurface,
+                  ),
                   label: Text(
-                    'Logout',
+                    '',
                     style: textStyles.p
                         .applyColor(colors.onSurface)
                         .copyWith(fontSize: 14),

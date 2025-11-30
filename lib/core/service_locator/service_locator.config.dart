@@ -50,6 +50,10 @@ import 'package:electrum/features/bike/data/repositories/bike_repo_impl.dart'
     as _i718;
 import 'package:electrum/features/bike/domain/repositories/bike_repo.dart'
     as _i802;
+import 'package:electrum/features/bike/domain/usecases/get_bikes_usecase.dart'
+    as _i776;
+import 'package:electrum/features/bike/presentation/cubits/bike_list/bike_list_cubit.dart'
+    as _i634;
 import 'package:electrum/features/interest/data/datasources/interest_network_dts.dart'
     as _i297;
 import 'package:electrum/features/interest/data/datasources/remote/mocked/interest_mocked_network_dts.dart'
@@ -66,6 +70,10 @@ import 'package:electrum/features/package/data/repositories/package_repo_impl.da
     as _i115;
 import 'package:electrum/features/package/domain/repositories/package_repo.dart'
     as _i369;
+import 'package:electrum/features/package/domain/usecases/get_packages_usecase.dart'
+    as _i999;
+import 'package:electrum/features/package/presentation/cubits/package_list/package_list_cubit.dart'
+    as _i755;
 import 'package:electrum/features/promotion/data/datasources/promotion_network_dts.dart'
     as _i906;
 import 'package:electrum/features/promotion/data/datasources/remote/mocked/promotion_mocked_network_dts.dart'
@@ -151,8 +159,20 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i700.SessionHandler>(),
       ),
     );
+    gh.factory<_i776.GetBikesUsecase>(
+      () => _i776.GetBikesUsecase(
+        gh<_i700.SessionHandler>(),
+        gh<_i802.BikeRepo>(),
+      ),
+    );
     gh.factory<_i76.PromotionRepo>(
       () => _i14.PromotionRepoImpl(gh<_i906.PromotionNetworkDts>()),
+    );
+    gh.factory<_i999.GetPackagesUsecase>(
+      () => _i999.GetPackagesUsecase(
+        gh<_i700.SessionHandler>(),
+        gh<_i369.PackageRepo>(),
+      ),
     );
     gh.factory<_i741.RegisterUsecase>(
       () => _i741.RegisterUsecase(
@@ -170,6 +190,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i903.LoginCubit>(
       () => _i903.LoginCubit(gh<_i132.LoginUsecase>()),
+    );
+    gh.factory<_i634.BikeListCubit>(
+      () => _i634.BikeListCubit(gh<_i776.GetBikesUsecase>()),
+    );
+    gh.factory<_i755.PackageListCubit>(
+      () => _i755.PackageListCubit(gh<_i999.GetPackagesUsecase>()),
     );
     gh.factory<_i1036.GetPromotionsUsecase>(
       () => _i1036.GetPromotionsUsecase(
