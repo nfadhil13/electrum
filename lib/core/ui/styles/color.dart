@@ -21,6 +21,11 @@ abstract class AppColors {
 
   // Error colors
   Color get error;
+  Color get onError;
+
+  // Success colors
+  Color get success;
+  Color get onSuccess;
 
   // Outline colors
   Color get outline;
@@ -61,6 +66,16 @@ class LightColors implements AppColors {
   @override
   Color get error => const Color(0xFFEF4444);
 
+  @override
+  Color get onError => const Color(0xFFFFFFFF);
+
+  // Success colors
+  @override
+  Color get success => const Color(0xFF10B981);
+
+  @override
+  Color get onSuccess => const Color(0xFFFFFFFF);
+
   // Outline colors
   @override
   Color get outline => const Color(0x1A000000);
@@ -97,6 +112,16 @@ class DarkColors implements AppColors {
   // Error colors
   @override
   Color get error => const Color(0xFFF87171);
+
+  @override
+  Color get onError => const Color(0xFFFFFFFF);
+
+  // Success colors
+  @override
+  Color get success => const Color(0xFF34D399);
+
+  @override
+  Color get onSuccess => const Color(0xFF1F2937);
 
   // Outline colors
   @override
