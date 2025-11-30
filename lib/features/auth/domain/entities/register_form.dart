@@ -1,16 +1,13 @@
-import 'package:equatable/equatable.dart';
+class RegisterFormEntity {
+  String fullName;
+  String email;
+  String password;
+  String confirmPassword;
 
-class RegisterFormEntity extends Equatable {
-  final String fullName;
-  final String email;
-  final String password;
-
-  const RegisterFormEntity({
-    required this.fullName,
-    required this.email,
-    required this.password,
+  RegisterFormEntity({
+    this.fullName = '',
+    this.email = '',
+    this.password = '',
+    this.confirmPassword = '',
   });
-
-  @override
-  List<Object?> get props => [fullName, email, password];
 }

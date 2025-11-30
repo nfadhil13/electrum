@@ -28,20 +28,17 @@ class AuthMockedNetworkDts implements AuthNetworkDts {
       updatedAt: DateTime.now(),
     );
   }
-
   @override
   Future<UserEntity> login(LoginFormEntity loginForm) async {
+    await Future.delayed(const Duration(seconds: 2));
     final user = users[loginForm.email];
     if (user == null) {
-      throw ApiError(
-        statusCode: 404,
-        message: ApiErrorType.USER_NOT_FOUND.name,
-      );
+      throw ApiError(statusCode: 404, message: ApiErrorType.userNotFound.name);
     }
     if (loginForm.password != user.password) {
       throw ApiError(
         statusCode: 401,
-        message: ApiErrorType.INVALID_PASSWORD.name,
+        message: ApiErrorType.invalidPassword.name,
       );
     }
     return user;
@@ -57,7 +54,7 @@ class AuthMockedNetworkDts implements AuthNetworkDts {
     if (users.containsKey(registerForm.email)) {
       throw ApiError(
         statusCode: 400,
-        message: ApiErrorType.USER_ALREADY_EXISTS.name,
+        message: ApiErrorType.userAlreadyExists.name,
       );
     }
     final user = UserEntity(

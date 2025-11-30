@@ -30,6 +30,16 @@ import 'package:electrum/features/auth/data/repositories/auth_repo_impl.dart'
     as _i920;
 import 'package:electrum/features/auth/domain/repositories/auth_repo.dart'
     as _i914;
+import 'package:electrum/features/auth/domain/usecases/login_usecase.dart'
+    as _i132;
+import 'package:electrum/features/auth/domain/usecases/logout_usecase.dart'
+    as _i410;
+import 'package:electrum/features/auth/domain/usecases/register_usecase.dart'
+    as _i741;
+import 'package:electrum/features/auth/presentation/cubits/login/login_cubit.dart'
+    as _i903;
+import 'package:electrum/features/auth/presentation/cubits/register/register_cubit.dart'
+    as _i657;
 import 'package:electrum/features/bike/data/datasources/bike_network_dts.dart'
     as _i328;
 import 'package:electrum/features/bike/data/datasources/remote/mocked/bike_mocked_network_dts.dart'
@@ -137,6 +147,26 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i76.PromotionRepo>(
       () => _i14.PromotionRepoImpl(gh<_i906.PromotionNetworkDts>()),
+    );
+    gh.factory<_i741.RegisterUsecase>(
+      () => _i741.RegisterUsecase(
+        gh<_i700.SessionHandler>(),
+        gh<_i914.AuthRepo>(),
+      ),
+    );
+    gh.factory<_i132.LoginUsecase>(
+      () =>
+          _i132.LoginUsecase(gh<_i700.SessionHandler>(), gh<_i914.AuthRepo>()),
+    );
+    gh.factory<_i410.LogoutUsecase>(
+      () =>
+          _i410.LogoutUsecase(gh<_i700.SessionHandler>(), gh<_i914.AuthRepo>()),
+    );
+    gh.factory<_i903.LoginCubit>(
+      () => _i903.LoginCubit(gh<_i132.LoginUsecase>()),
+    );
+    gh.factory<_i657.RegisterCubit>(
+      () => _i657.RegisterCubit(gh<_i741.RegisterUsecase>()),
     );
     return this;
   }
