@@ -2,7 +2,9 @@ import 'package:electrum/core/types/result.dart';
 import 'package:electrum/core/types/usecase.dart';
 import 'package:electrum/features/bike/domain/entities/bike.dart';
 import 'package:electrum/features/bike/domain/repositories/bike_repo.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class GetBikesUsecase extends UsecaseNoParams<List<Bike>> {
   final BikeRepo _repo;
   GetBikesUsecase(super.sessionHandler, this._repo);
@@ -10,4 +12,3 @@ class GetBikesUsecase extends UsecaseNoParams<List<Bike>> {
   @override
   Future<Resource<List<Bike>>> execute() => _repo.getBikes().asResource;
 }
-
