@@ -19,6 +19,9 @@ class ElectrumFieldDecoration {
           : null,
       suffixIcon: suffixIcon,
       filled: true,
+      errorStyle: textStyles.p.medium
+          .applyColor(colors.error)
+          .copyWith(fontSize: 12),
       fillColor: colors.surfaceVariant,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),

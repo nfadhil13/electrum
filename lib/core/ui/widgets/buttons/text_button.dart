@@ -18,7 +18,7 @@ class ElectrumTextButton extends StatelessWidget {
     final colors = context.colors;
     final textStyles = context.textStyles;
 
-    return GestureDetector(
+    return InkWell(
       onTap: enabled ? onPressed : null,
       child: Text(
         text,
@@ -29,4 +29,3 @@ class ElectrumTextButton extends StatelessWidget {
     );
   }
 }
-
