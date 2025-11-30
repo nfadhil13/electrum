@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 @injectable
 class UserEntityLocalMapper implements JSONMapper<UserEntity> {
   @override
-  UserEntity fromJson(Map<String, dynamic> json) {
+  UserEntity fromJson(dynamic json) {
     return UserEntity(
       id: json['id'],
       fullName: json['fullName'],
