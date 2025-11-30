@@ -1,7 +1,7 @@
 part of 'base.dart';
 
 // ignore: constant_identifier_names
-enum ApiErrorType { USER_NOT_FOUND, INVALID_PASSWORD, USER_ALREADY_EXISTS }
+enum ApiErrorType { userNotFound, invalidPassword, userAlreadyExists }
 
 class ApiError extends BaseException {
   final int statusCode;
