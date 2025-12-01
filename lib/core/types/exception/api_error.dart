@@ -3,10 +3,10 @@ part of 'base.dart';
 // ignore: constant_identifier_names
 enum ApiErrorType { userNotFound, invalidPassword, userAlreadyExists }
 
-class ApiError extends BaseException {
+class ApiException extends BaseException {
   final int statusCode;
 
-  const ApiError({required this.statusCode, required super.message})
+  const ApiException({required this.statusCode, required super.message})
     : super(knownException: KnownException.apiError);
 
   @override

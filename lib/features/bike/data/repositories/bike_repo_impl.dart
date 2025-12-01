@@ -12,13 +12,15 @@ class BikeRepoImpl implements BikeRepo {
   BikeRepoImpl(this._bikeNetworkDts);
 
   @override
-  Future<RepoResult<List<Bike>>> getBikes({Availability? availability}) async {
+  Future<RepoResult<List<BikeEntity>>> getBikes({
+    Availability? availability,
+  }) async {
     final bikes = await _bikeNetworkDts.getBikes(availability: availability);
     return RepoResult(data: bikes);
   }
 
   @override
-  Future<RepoResult<Bike>> getBikeById(String id) async {
+  Future<RepoResult<BikeDetailEntity>> getBikeById(String id) async {
     final bike = await _bikeNetworkDts.getBikeById(id);
     return RepoResult(data: bike);
   }

@@ -144,14 +144,18 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i495.PromotionMockDB(),
       registerFor: {_mocked},
     );
-    gh.factory<_i328.BikeNetworkDts>(
-      () => _i1073.BikeMockedNetworkDts(gh<_i1073.BikeMockDB>()),
-      registerFor: {_mocked},
-    );
     gh.lazySingleton<_i700.SessionHandler>(
       () => _i415.SessionHandlerMockedImpl(
         gh<_i242.SecureStorage>(),
         gh<_i179.SessionMockedMapper>(),
+      ),
+      registerFor: {_mocked},
+    );
+    gh.factory<_i328.BikeNetworkDts>(
+      () => _i1073.BikeMockedNetworkDts(
+        gh<_i1073.BikeMockDB>(),
+        gh<_i865.BikeInterestMockDB>(),
+        gh<_i700.SessionHandler>(),
       ),
       registerFor: {_mocked},
     );

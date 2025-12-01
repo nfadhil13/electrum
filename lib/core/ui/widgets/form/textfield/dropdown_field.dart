@@ -35,7 +35,7 @@ class ElectrumDropdownField<T> extends StatelessWidget {
     return ElectrumFormWrapper(
       label: label,
       child: DropdownButtonFormField<T>(
-        value: value,
+        initialValue: value,
         items: items.map((item) {
           return DropdownMenuItem<T>(
             value: item.value,
@@ -68,9 +68,5 @@ class ElectrumDropdownItem<T> {
   final T value;
   final String label;
 
-  const ElectrumDropdownItem({
-    required this.value,
-    required this.label,
-  });
+  const ElectrumDropdownItem({required this.value, required this.label});
 }
-

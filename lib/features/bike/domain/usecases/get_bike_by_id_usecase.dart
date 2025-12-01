@@ -5,11 +5,11 @@ import 'package:electrum/features/bike/domain/repositories/bike_repo.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetBikeByIdUsecase extends Usecase<String, Bike> {
+class GetBikeByIdUsecase extends Usecase<String, BikeDetailEntity> {
   final BikeRepo _repo;
   GetBikeByIdUsecase(super.sessionHandler, this._repo);
 
   @override
-  Future<Resource<Bike>> execute(String params) =>
+  Future<Resource<BikeDetailEntity>> execute(String params) =>
       _repo.getBikeById(params).asResource;
 }

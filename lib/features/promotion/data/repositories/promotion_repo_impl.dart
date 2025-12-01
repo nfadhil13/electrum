@@ -11,7 +11,7 @@ class PromotionRepoImpl implements PromotionRepo {
   PromotionRepoImpl(this._promotionNetworkDts);
 
   @override
-  Future<RepoResult<List<Promotion>>> getPromotions() async {
+  Future<RepoResult<List<PromotionEntity>>> getPromotions() async {
     final promotions = await _promotionNetworkDts.getPromotions();
     return RepoResult(data: promotions);
   }

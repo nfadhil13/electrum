@@ -3,9 +3,9 @@ import 'package:electrum/features/bike/domain/entities/bike_interest.dart';
 import 'package:electrum/features/bike/domain/entities/bike_interest_form.dart';
 
 abstract class BikeInterestRepo {
-  Future<RepoResult<BikeInterest>> submitInterest(
+  Future<RepoResult<BikeInterestEntity>> submitInterest(
     String userId,
     BikeInterestFormEntity interestForm,
   );
-  Future<RepoResult<List<BikeInterest>>> getInterests();
+  Future<RepoResult<List<BikeInterestEntity>>> getInterests();
 }

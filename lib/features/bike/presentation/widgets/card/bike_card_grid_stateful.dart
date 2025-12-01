@@ -30,9 +30,8 @@ class BikeStatefulGrid extends StatelessWidget {
                 ? const _BikeCardGridEmpty()
                 : BikeCardGrid(
                     bikes: state.bikes,
-                    onBikeTap: (bike) => context.goNamed(
-                      AppRoutes.bikeDetails,
-                      pathParameters: {'id': bike.id},
+                    onBikeTap: (bike) => context.go(
+                      AppRoutes.bikeDetails.withParameter('id', bike.id),
                     ),
                   ),
         },

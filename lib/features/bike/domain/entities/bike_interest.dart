@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class BikeInterest extends Equatable {
+class BikeInterestEntity extends Equatable {
   final String id;
   final String userId;
   final String bikeId;
@@ -10,7 +10,7 @@ class BikeInterest extends Equatable {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  const BikeInterest({
+  const BikeInterestEntity({
     required this.id,
     required this.userId,
     required this.bikeId,
@@ -23,14 +23,13 @@ class BikeInterest extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        userId,
-        bikeId,
-        preferedStartDate,
-        pickUpArea,
-        contact,
-        createdAt,
-        updatedAt,
-      ];
+    id,
+    userId,
+    bikeId,
+    preferedStartDate,
+    pickUpArea,
+    contact,
+    createdAt,
+    updatedAt,
+  ];
 }
-

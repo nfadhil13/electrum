@@ -1,7 +1,7 @@
 part of '../bike_detail_page.dart';
 
 class _BikeDetailContent extends StatelessWidget {
-  final Bike bike;
+  final BikeDetailEntity bike;
 
   const _BikeDetailContent({required this.bike});
 
@@ -22,7 +22,7 @@ class _BikeDetailContent extends StatelessWidget {
 }
 
 class _BikeImageSection extends StatelessWidget {
-  final Bike bike;
+  final BikeDetailEntity bike;
 
   const _BikeImageSection({required this.bike});
 
@@ -63,7 +63,7 @@ class _BikeImageSection extends StatelessWidget {
 }
 
 class _BikeDetailsSection extends StatelessWidget {
-  final Bike bike;
+  final BikeDetailEntity bike;
 
   const _BikeDetailsSection({required this.bike});
 
@@ -94,12 +94,24 @@ class _BikeDetailsSection extends StatelessWidget {
     ),
   ];
 
+  void _onInterestedToRent(BuildContext context) async {
+    final bloc = context.read<BikeDetailCubit>();
+    final result = await BikeInterestFormPage.show(context, bike.id);
+    if (!result) return;
+    bloc.refreshBike();
+  }
+
+  void _onViewDetails(BuildContext context, BikeInterestEntity interest) {
+    BikeInterestDialog.show(context, bike, interest: interest);
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
     final textStyles = context.textStyles;
     final t = context.t;
     final specificationCardData = _specificationCardData(context);
+    final interest = bike.interest;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,12 +149,19 @@ class _BikeDetailsSection extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 32),
-        // Rent Button
-        ElectrumFilledButton(
-          text: t.interestedToRent,
-          width: double.infinity,
-          onPressed: () {},
-        ),
+        if (interest == null)
+          ElectrumFilledButton(
+            text: t.interestedToRent,
+            width: double.infinity,
+            onPressed: () => _onInterestedToRent(context),
+          )
+        else
+          // View existing interest
+          ElectrumFilledButton(
+            text: t.viewDetails,
+            width: double.infinity,
+            onPressed: () => _onViewDetails(context, interest),
+          ),
       ],
     );
   }

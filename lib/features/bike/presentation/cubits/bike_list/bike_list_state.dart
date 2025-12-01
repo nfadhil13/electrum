@@ -14,7 +14,7 @@ class BikeListLoading extends BikeListState {
 }
 
 class BikeListSuccess extends BikeListState {
-  final List<Bike> bikes;
+  final List<BikeEntity> bikes;
 
   const BikeListSuccess(this.bikes);
 

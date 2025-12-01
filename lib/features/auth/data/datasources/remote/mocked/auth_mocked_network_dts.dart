@@ -16,10 +16,13 @@ class AuthMockedNetworkDts implements AuthNetworkDts {
     await Future.delayed(const Duration(seconds: 2));
     final user = _authMockDB.users[loginForm.email];
     if (user == null) {
-      throw ApiError(statusCode: 404, message: ApiErrorType.userNotFound.name);
+      throw ApiException(
+        statusCode: 404,
+        message: ApiErrorType.userNotFound.name,
+      );
     }
     if (loginForm.password != user.password) {
-      throw ApiError(
+      throw ApiException(
         statusCode: 401,
         message: ApiErrorType.invalidPassword.name,
       );
@@ -35,7 +38,7 @@ class AuthMockedNetworkDts implements AuthNetworkDts {
   @override
   Future<UserEntity> register(RegisterFormEntity registerForm) {
     if (_authMockDB.users.containsKey(registerForm.email)) {
-      throw ApiError(
+      throw ApiException(
         statusCode: 400,
         message: ApiErrorType.userAlreadyExists.name,
       );

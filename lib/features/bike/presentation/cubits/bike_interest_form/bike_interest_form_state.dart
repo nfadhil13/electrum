@@ -6,7 +6,8 @@ sealed class BikeInterestFormState extends Equatable {
   @override
   List<Object?> get props => [];
 
-  bool get isLoading => this is BikeInterestFormSubmitting;
+  bool get isLoading =>
+      this is BikeInterestFormSubmitting || this is BikeInterestFormPreparing;
 }
 
 class BikeInterestFormPreparing extends BikeInterestFormState {
@@ -22,7 +23,7 @@ class BikeInterestFormPreparingError extends BikeInterestFormState {
 }
 
 class BikeInterestFormPreparingSuccess extends BikeInterestFormState {
-  final Bike bike;
+  final BikeEntity bike;
   const BikeInterestFormPreparingSuccess({required this.bike});
 
   @override
@@ -38,7 +39,7 @@ class BikeInterestFormSubmitting extends BikeInterestFormPreparingSuccess {
 }
 
 class BikeInterestFormSuccess extends BikeInterestFormPreparingSuccess {
-  final BikeInterest interest;
+  final BikeInterestEntity interest;
 
   const BikeInterestFormSuccess({required super.bike, required this.interest});
 

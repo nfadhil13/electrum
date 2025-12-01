@@ -10,18 +10,18 @@ class PromotionMockedNetworkDts implements PromotionNetworkDts {
   PromotionMockedNetworkDts(this._promotionMockDB);
 
   @override
-  Future<List<Promotion>> getPromotions() async {
+  Future<List<PromotionEntity>> getPromotions() async {
     return _promotionMockDB.promotions;
   }
 }
 
 @LazySingleton(env: [AppEnvironment.mocked])
 class PromotionMockDB {
-  final List<Promotion> _promotions = [];
+  final List<PromotionEntity> _promotions = [];
 
   PromotionMockDB() {
     _promotions.addAll([
-      Promotion(
+      PromotionEntity(
         id: '1',
         title: 'Welcome Bonus: 20% Off First Rental',
         description:
@@ -32,7 +32,7 @@ class PromotionMockDB {
               'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
         ),
       ),
-      Promotion(
+      PromotionEntity(
         id: '2',
         title: 'Weekend Special',
         description:
@@ -43,7 +43,7 @@ class PromotionMockDB {
               'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800',
         ),
       ),
-      Promotion(
+      PromotionEntity(
         id: '3',
         title: 'Refer a Friend',
         description:
@@ -57,5 +57,5 @@ class PromotionMockDB {
     ]);
   }
 
-  List<Promotion> get promotions => List.from(_promotions);
+  List<PromotionEntity> get promotions => List.from(_promotions);
 }

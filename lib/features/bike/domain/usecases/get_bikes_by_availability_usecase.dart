@@ -4,12 +4,12 @@ import 'package:electrum/features/bike/domain/entities/availability.dart';
 import 'package:electrum/features/bike/domain/entities/bike.dart';
 import 'package:electrum/features/bike/domain/repositories/bike_repo.dart';
 
-class GetBikesByAvailabilityUsecase extends Usecase<Availability, List<Bike>> {
+class GetBikesByAvailabilityUsecase
+    extends Usecase<Availability, List<BikeEntity>> {
   final BikeRepo _repo;
   GetBikesByAvailabilityUsecase(super.sessionHandler, this._repo);
 
   @override
-  Future<Resource<List<Bike>>> execute(Availability params) =>
+  Future<Resource<List<BikeEntity>>> execute(Availability params) =>
       _repo.getBikes(availability: params).asResource;
 }
-

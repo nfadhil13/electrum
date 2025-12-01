@@ -10,6 +10,7 @@ class PackageMockedNetworkDts implements PackageNetworkDts {
 
   @override
   Future<List<Package>> getPackages() async {
+    await Future.delayed(const Duration(seconds: 3));
     return _packageMockDB.packages;
   }
 }

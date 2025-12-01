@@ -26,4 +26,18 @@ class BikeDetailCubit extends Cubit<BikeDetailState> {
         emit(BikeDetailError(exception));
     }
   }
+
+  Future<void> refreshBike() async {
+    final state = this.state;
+    if (state is! BikeDetailSuccess) return;
+    final bike = state.bike;
+    emit(BikeDetailRefreshing(bike));
+    final result = await _getBikeByIdUsecase(bike.id);
+    switch (result) {
+      case Success(data: final bike):
+        emit(BikeDetailSuccess(bike));
+      case Failure(exception: final exception):
+        emit(BikeDetailError(exception));
+    }
+  }
 }

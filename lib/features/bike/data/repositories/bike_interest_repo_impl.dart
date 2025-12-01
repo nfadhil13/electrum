@@ -12,7 +12,7 @@ class BikeInterestRepoImpl implements BikeInterestRepo {
   BikeInterestRepoImpl(this._bikeInterestNetworkDts);
 
   @override
-  Future<RepoResult<BikeInterest>> submitInterest(
+  Future<RepoResult<BikeInterestEntity>> submitInterest(
     String userId,
     BikeInterestFormEntity interestForm,
   ) async {
@@ -24,7 +24,7 @@ class BikeInterestRepoImpl implements BikeInterestRepo {
   }
 
   @override
-  Future<RepoResult<List<BikeInterest>>> getInterests() async {
+  Future<RepoResult<List<BikeInterestEntity>>> getInterests() async {
     final interests = await _bikeInterestNetworkDts.getInterests();
     return RepoResult(data: interests);
   }

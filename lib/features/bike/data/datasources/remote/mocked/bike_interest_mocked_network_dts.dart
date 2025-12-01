@@ -13,39 +13,56 @@ class BikeInterestMockedNetworkDts implements BikeInterestNetworkDts {
   BikeInterestMockedNetworkDts(this._bikeInterestMockDB, this._handler);
 
   @override
-  Future<BikeInterest> submitInterest(
+  Future<BikeInterestEntity> submitInterest(
     String userId,
     BikeInterestFormEntity interestForm,
   ) async {
-    // Form validation ensures these fields are not null
-    final interest = BikeInterest(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      userId: userId,
-      bikeId: interestForm.bikeId,
-      preferedStartDate: interestForm.preferredStartDate!,
-      pickUpArea: interestForm.pickUpArea!,
-      contact: interestForm.contact!,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    );
+    try {
+      // Form validation ensures these fields are not null
+      final interest = BikeInterestEntity(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        userId: userId,
+        bikeId: interestForm.bikeId,
+        preferedStartDate: interestForm.preferredStartDate!,
+        pickUpArea: interestForm.pickUpArea!,
+        contact: interestForm.contact!,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      );
 
-    _bikeInterestMockDB.interests.add(interest);
-    return interest;
+      _bikeInterestMockDB.interests.add(interest);
+      return interest;
+    } catch (e) {
+      throw ApiException(statusCode: 500, message: 'Failed to submit interest');
+    }
   }
 
   @override
-  Future<List<BikeInterest>> getInterests() async {
+  Future<List<BikeInterestEntity>> getInterests() async {
     final session = await _handler.getSession();
     if (session == null) throw SessionExpiredException();
-    return [
-      ..._bikeInterestMockDB.interests,
-    ].where((interest) => interest.userId == session.getUserId()).toList();
+    return _bikeInterestMockDB.getUserInterests(session.getUserId());
   }
 }
 
 @LazySingleton(env: [AppEnvironment.mocked])
 class BikeInterestMockDB {
-  final List<BikeInterest> interests = [];
+  final List<BikeInterestEntity> interests = [];
 
   BikeInterestMockDB();
+
+  List<BikeInterestEntity> getUserInterests(String userId) {
+    return [
+      ...interests,
+    ].where((interest) => interest.userId == userId).toList();
+  }
+
+  BikeInterestEntity? getUserInterestByBikeId(String bikeId, String userId) {
+    for (var interest in interests) {
+      if (interest.bikeId == bikeId && interest.userId == userId) {
+        return interest;
+      }
+    }
+    return null;
+  }
 }

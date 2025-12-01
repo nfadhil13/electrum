@@ -1,14 +1,14 @@
 import 'package:electrum/core/types/image.dart';
 import 'package:equatable/equatable.dart';
 
-class Promotion extends Equatable {
+class PromotionEntity extends Equatable {
   final String id;
   final String title;
   final String description;
   final DateTime validUntil;
   final ElectrumImage image;
 
-  const Promotion({
+  const PromotionEntity({
     required this.id,
     required this.title,
     required this.description,

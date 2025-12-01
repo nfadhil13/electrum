@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class BikeCardGrid extends StatelessWidget {
-  final List<Bike> bikes;
-  final void Function(Bike)? onBikeTap;
+  final List<BikeEntity> bikes;
+  final void Function(BikeEntity)? onBikeTap;
 
   const BikeCardGrid({super.key, required this.bikes, this.onBikeTap});
 
@@ -14,6 +14,7 @@ class BikeCardGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return BreakPointWidget(
       xs: _buildGrid(context, crossAxisCount: 2),
+      // sm: _buildGrid(context, crossAxisCount: 2),
       md: _buildGrid(context, crossAxisCount: 3),
     );
   }

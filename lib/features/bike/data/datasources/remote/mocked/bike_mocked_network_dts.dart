@@ -1,6 +1,9 @@
 import 'package:electrum/core/env/environment.dart';
+import 'package:electrum/core/session_handler/session.dart';
+import 'package:electrum/core/types/exception/base.dart';
 import 'package:electrum/core/types/image.dart';
 import 'package:electrum/features/bike/data/datasources/bike_network_dts.dart';
+import 'package:electrum/features/bike/data/datasources/remote/mocked/bike_interest_mocked_network_dts.dart';
 import 'package:electrum/features/bike/domain/entities/availability.dart';
 import 'package:electrum/features/bike/domain/entities/bike.dart';
 import 'package:injectable/injectable.dart';
@@ -8,10 +11,17 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: BikeNetworkDts, env: [AppEnvironment.mocked])
 class BikeMockedNetworkDts implements BikeNetworkDts {
   final BikeMockDB _bikeMockDB;
-  BikeMockedNetworkDts(this._bikeMockDB);
+  final BikeInterestMockDB _bikeInterestMockDB;
+  final SessionHandler _sessionHandler;
+  BikeMockedNetworkDts(
+    this._bikeMockDB,
+    this._bikeInterestMockDB,
+    this._sessionHandler,
+  );
 
   @override
-  Future<List<Bike>> getBikes({Availability? availability}) async {
+  Future<List<BikeEntity>> getBikes({Availability? availability}) async {
+    await Future.delayed(const Duration(seconds: 2));
     if (availability == null) {
       return _bikeMockDB.bikes;
     }
@@ -21,22 +31,30 @@ class BikeMockedNetworkDts implements BikeNetworkDts {
   }
 
   @override
-  Future<Bike> getBikeById(String id) async {
+  Future<BikeDetailEntity> getBikeById(String id) async {
+    await Future.delayed(const Duration(seconds: 2));
     final bike = _bikeMockDB.bikes.firstWhere(
       (bike) => bike.id == id,
-      orElse: () => throw Exception('Bike not found'),
+      orElse: () =>
+          throw ApiException(statusCode: 404, message: 'Bike not found'),
     );
-    return bike;
+    final session = await _sessionHandler.getSession();
+    if (session == null) return BikeDetailEntity.fromBikeEntity(bike, null);
+    final interest = _bikeInterestMockDB.getUserInterestByBikeId(
+      id,
+      session.getUserId(),
+    );
+    return BikeDetailEntity.fromBikeEntity(bike, interest);
   }
 }
 
 @LazySingleton(env: [AppEnvironment.mocked])
 class BikeMockDB {
-  final List<Bike> _bikes = [];
+  final List<BikeEntity> _bikes = [];
 
   BikeMockDB() {
     _bikes.addAll([
-      Bike(
+      BikeEntity(
         id: '1',
         name: 'Electrum X1',
         image: ElectrumImageNetwork(
@@ -54,7 +72,7 @@ class BikeMockDB {
         createdAt: DateTime.now().subtract(const Duration(days: 30)),
         updatedAt: DateTime.now(),
       ),
-      Bike(
+      BikeEntity(
         id: '2',
         name: 'Electrum Pro',
         image: ElectrumImageNetwork(
@@ -72,7 +90,7 @@ class BikeMockDB {
         createdAt: DateTime.now().subtract(const Duration(days: 25)),
         updatedAt: DateTime.now(),
       ),
-      Bike(
+      BikeEntity(
         id: '3',
         name: 'Electrum Sport',
         image: ElectrumImageNetwork(
@@ -90,7 +108,7 @@ class BikeMockDB {
         createdAt: DateTime.now().subtract(const Duration(days: 20)),
         updatedAt: DateTime.now(),
       ),
-      Bike(
+      BikeEntity(
         id: '4',
         name: 'Electrum Tour',
         image: ElectrumImageNetwork(
@@ -108,7 +126,7 @@ class BikeMockDB {
         createdAt: DateTime.now().subtract(const Duration(days: 15)),
         updatedAt: DateTime.now(),
       ),
-      Bike(
+      BikeEntity(
         id: '5',
         name: 'Electrum Compact',
         image: ElectrumImageNetwork(
@@ -129,5 +147,5 @@ class BikeMockDB {
     ]);
   }
 
-  List<Bike> get bikes => List.from(_bikes);
+  List<BikeEntity> get bikes => List.from(_bikes);
 }

@@ -1,4 +1,4 @@
-import 'package:electrum/core/ext/local.dart';
+import 'package:electrum/core/ext/color.dart';
 import 'package:electrum/core/localization/i18n/strings.g.dart';
 import 'package:electrum/core/service_locator/service_locator.dart';
 import 'package:electrum/core/ui/messenger/messenger.dart';
@@ -7,7 +7,7 @@ import 'package:electrum/core/ui/widgets/buttons/filled_button.dart';
 import 'package:electrum/core/ui/widgets/buttons/outline_button.dart';
 import 'package:electrum/core/ui/widgets/error/electrum_error_widget.dart';
 import 'package:electrum/core/ui/widgets/form/form.dart';
-import 'package:electrum/core/ui/widgets/form/textfield/date_picker_field.dart';
+import 'package:electrum/core/ui/widgets/form/date_picker_field.dart';
 import 'package:electrum/core/ui/widgets/form/textfield/dropdown_field.dart';
 import 'package:electrum/core/ui/widgets/form/textfield/textfield.dart';
 import 'package:electrum/core/ui/widgets/layout/loading_container.dart';
@@ -22,10 +22,18 @@ class BikeInterestFormPage extends StatelessWidget {
 
   const BikeInterestFormPage({super.key, required this.bikeId});
 
+  static Future<bool> show(BuildContext context, String bikeId) async {
+    final result = await showDialog(
+      context: context,
+      builder: (context) => BikeInterestFormPage(bikeId: bikeId),
+    );
+    return result ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BikeInterestFormCubit>(
-      create: (context) => getIt<BikeInterestFormCubit>(),
+      create: (context) => getIt<BikeInterestFormCubit>()..loadBike(bikeId),
       child: _BikeInterestFormContent(bikeId: bikeId),
     );
   }
@@ -46,6 +54,7 @@ class _BikeInterestFormContent extends StatelessWidget {
         (state) => state.isLoading,
       ),
       child: Dialog(
+        backgroundColor: context.colors.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Container(
           constraints: const BoxConstraints(maxWidth: 500),
@@ -65,7 +74,7 @@ class _BikeInterestFormContent extends StatelessWidget {
 }
 
 class _BikeForm extends StatelessWidget {
-  final Bike bike;
+  final BikeEntity bike;
   const _BikeForm({required this.bike});
 
   static const _pickupAreas = [
@@ -92,14 +101,11 @@ class _BikeForm extends StatelessWidget {
           return BlocListener<BikeInterestFormCubit, BikeInterestFormState>(
             listener: (context, state) {
               if (state is BikeInterestFormSuccess) {
+                Navigator.of(context).pop(true);
                 context.showSuccessSnackbar(t.interestSubmittedSuccessfully);
-                Navigator.of(context).pop();
               }
               if (state is BikeInterestFormError) {
                 form.setError(state.errors);
-                context.showErrorSnackbar(
-                  context.localizeMessage(state.exception.message),
-                );
               }
             },
             child: Column(
@@ -141,7 +147,7 @@ class _BikeForm extends StatelessWidget {
                 ElectrumDatePickerField(
                   label: '${t.preferredStartDate} *',
                   hint: t.preferredStartDatePlaceholder,
-                  value: form.value.preferredStartDate,
+                  initialValue: form.value.preferredStartDate,
                   onChanged: (date) {
                     form.value.preferredStartDate = date;
                   },
@@ -188,6 +194,29 @@ class _BikeForm extends StatelessWidget {
                     form.value.additionalNotes = value;
                   },
                   validator: (value) => form.errors('additionalNotes'),
+                ),
+                BlocBuilder<BikeInterestFormCubit, BikeInterestFormState>(
+                  builder: (context, state) {
+                    if (state is! BikeInterestFormError) {
+                      return const SizedBox.shrink();
+                    }
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: colors.error, width: 1),
+                          color: colors.error.applyOpacity(0.1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          state.exception.message,
+                          style: textStyles.p.applyColor(colors.error),
+                        ),
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(height: 24),
                 // Buttons

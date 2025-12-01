@@ -5,11 +5,11 @@ import 'package:electrum/features/promotion/domain/repositories/promotion_repo.d
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetPromotionsUsecase extends UsecaseNoParams<List<Promotion>> {
+class GetPromotionsUsecase extends UsecaseNoParams<List<PromotionEntity>> {
   final PromotionRepo _repo;
   GetPromotionsUsecase(super.sessionHandler, this._repo);
 
   @override
-  Future<Resource<List<Promotion>>> execute() =>
+  Future<Resource<List<PromotionEntity>>> execute() =>
       _repo.getPromotions().asResource;
 }

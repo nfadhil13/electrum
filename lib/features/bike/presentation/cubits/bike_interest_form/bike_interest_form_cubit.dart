@@ -23,7 +23,7 @@ class BikeInterestFormCubit extends Cubit<BikeInterestFormState> {
 
   Future<void> loadBike(String bikeId) async {
     emit(const BikeInterestFormPreparing());
-    final result = await _getBikeByIdUsecase.execute(bikeId);
+    final result = await _getBikeByIdUsecase(bikeId);
     switch (result) {
       case Success(data: final bike):
         emit(BikeInterestFormPreparingSuccess(bike: bike));
@@ -38,7 +38,7 @@ class BikeInterestFormCubit extends Cubit<BikeInterestFormState> {
     final bike = state.bike;
     emit(BikeInterestFormSubmitting(bike: bike));
 
-    final result = await _submitBikeInterestUsecase.execute(form);
+    final result = await _submitBikeInterestUsecase(form);
 
     switch (result) {
       case Success(data: final interest):

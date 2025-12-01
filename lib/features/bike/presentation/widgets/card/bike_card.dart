@@ -1,13 +1,15 @@
 import 'package:electrum/core/localization/i18n/strings.g.dart';
 import 'package:electrum/core/types/image_flutter.dart';
+import 'package:electrum/core/ui/responsive/responsive.dart';
 import 'package:electrum/core/ui/styles/style.dart';
 import 'package:electrum/core/ui/widgets/buttons/filled_button.dart';
+import 'package:electrum/core/ui/widgets/buttons/text_button.dart';
 import 'package:electrum/features/bike/domain/entities/bike.dart';
 import 'package:electrum/features/bike/presentation/widgets/bike_availability_badge.dart';
 import 'package:flutter/material.dart';
 
 class BikeCard extends StatelessWidget {
-  final Bike bike;
+  final BikeEntity bike;
   final VoidCallback? onTap;
 
   const BikeCard({super.key, required this.bike, this.onTap});
@@ -87,18 +89,29 @@ class BikeCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 12),
-                  Text(
-                    bike.description,
-                    style: textStyles.p.applyColor(colors.onSurfaceMuted),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: Text(
+                      bike.description,
+                      style: textStyles.p.applyColor(colors.onSurfaceMuted),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   const SizedBox(height: 16),
-                  ElectrumFilledButton(
-                    text: t.viewDetails,
-                    width: double.infinity,
-                    onPressed: onTap,
+                  BreakPointWidget(
+                    xs: Align(
+                      alignment: Alignment.center,
+                      child: ElectrumTextButton(
+                        text: t.viewDetails,
+                        onPressed: onTap,
+                      ),
+                    ),
+                    sm: ElectrumFilledButton(
+                      text: t.viewDetails,
+                      width: double.infinity,
+                      onPressed: onTap,
+                    ),
                   ),
                 ],
               ),

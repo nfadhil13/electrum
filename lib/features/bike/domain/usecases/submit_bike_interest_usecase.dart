@@ -8,12 +8,14 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class SubmitBikeInterestUsecase
-    extends Usecase<BikeInterestFormEntity, BikeInterest> {
+    extends Usecase<BikeInterestFormEntity, BikeInterestEntity> {
   final BikeInterestRepo _repo;
   SubmitBikeInterestUsecase(super.sessionHandler, this._repo);
 
   @override
-  Future<Resource<BikeInterest>> execute(BikeInterestFormEntity params) async {
+  Future<Resource<BikeInterestEntity>> execute(
+    BikeInterestFormEntity params,
+  ) async {
     final session = await requireSession();
     final userId = switch (session) {
       SessionMocked(:final userId) => userId,
@@ -21,4 +23,3 @@ class SubmitBikeInterestUsecase
     return _repo.submitInterest(userId, params).asResource;
   }
 }
-

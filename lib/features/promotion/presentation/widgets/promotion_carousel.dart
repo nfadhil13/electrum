@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class PromotionCarousel extends StatelessWidget {
-  final List<Promotion> promotions;
+  final List<PromotionEntity> promotions;
   final double? height;
-  final VoidCallback? Function(Promotion)? onPromotionTap;
+  final VoidCallback? Function(PromotionEntity)? onPromotionTap;
 
   const PromotionCarousel({
     super.key,
@@ -51,7 +51,7 @@ class PromotionCarousel extends StatelessWidget {
 }
 
 class PromotionCarouselItem extends StatelessWidget {
-  final Promotion promotion;
+  final PromotionEntity promotion;
   final VoidCallback? onTap;
 
   const PromotionCarouselItem({super.key, required this.promotion, this.onTap});

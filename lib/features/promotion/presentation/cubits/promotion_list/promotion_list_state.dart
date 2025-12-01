@@ -14,7 +14,7 @@ class PromotionListLoading extends PromotionListState {
 }
 
 class PromotionListSuccess extends PromotionListState {
-  final List<Promotion> promotions;
+  final List<PromotionEntity> promotions;
 
   const PromotionListSuccess(this.promotions);
 

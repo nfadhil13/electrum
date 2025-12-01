@@ -5,8 +5,6 @@ sealed class BikeDetailState extends Equatable {
 
   @override
   List<Object?> get props => [];
-
-  bool get isLoading => this is BikeDetailLoading;
 }
 
 class BikeDetailLoading extends BikeDetailState {
@@ -14,12 +12,16 @@ class BikeDetailLoading extends BikeDetailState {
 }
 
 class BikeDetailSuccess extends BikeDetailState {
-  final Bike bike;
+  final BikeDetailEntity bike;
 
   const BikeDetailSuccess(this.bike);
 
   @override
   List<Object?> get props => [bike];
+}
+
+class BikeDetailRefreshing extends BikeDetailSuccess {
+  const BikeDetailRefreshing(super.bike);
 }
 
 class BikeDetailError extends BikeDetailState {
