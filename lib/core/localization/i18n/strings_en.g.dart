@@ -103,6 +103,84 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Login successful'
 	String get loginSuccess => 'Login successful';
+
+	/// en: 'Electrum Bikes'
+	String get appTitle => 'Electrum Bikes';
+
+	/// en: 'Electric Mobility'
+	String get appSubtitle => 'Electric Mobility';
+
+	/// en: 'Rental Packages'
+	String get rentalPackages => 'Rental Packages';
+
+	/// en: 'Choose the plan that fits your lifestyle.'
+	String get rentalPackagesDescription => 'Choose the plan that fits your lifestyle.';
+
+	/// en: 'Electrum Bikes'
+	String get electrumBikes => 'Electrum Bikes';
+
+	/// en: 'Discover our fleet of premium electric bikes.'
+	String get electrumBikesDescription => 'Discover our fleet of premium electric bikes.';
+
+	/// en: 'Range'
+	String get range => 'Range';
+
+	/// en: 'View Details'
+	String get viewDetails => 'View Details';
+
+	/// en: 'Available'
+	String get available => 'Available';
+
+	/// en: 'Limited'
+	String get limited => 'Limited';
+
+	/// en: 'Unavailable'
+	String get unavailable => 'Unavailable';
+
+	/// en: 'Most Popular'
+	String get mostPopular => 'Most Popular';
+
+	/// en: 'Day'
+	String get day => 'Day';
+
+	/// en: 'Week'
+	String get week => 'Week';
+
+	/// en: 'Month'
+	String get month => 'Month';
+
+	/// en: 'Retry'
+	String get retry => 'Retry';
+
+	/// en: 'No bikes available'
+	String get noBikesAvailable => 'No bikes available';
+
+	/// en: 'No packages available'
+	String get noPackagesAvailable => 'No packages available';
+
+	/// en: 'No promotions available'
+	String get noPromotionsAvailable => 'No promotions available';
+
+	/// en: 'Valid until'
+	String get validUntil => 'Valid until';
+
+	/// en: '← Back to Bikes'
+	String get backToBikes => '← Back to Bikes';
+
+	/// en: 'I'm Interested to Rent'
+	String get interestedToRent => 'I\'m Interested to Rent';
+
+	/// en: 'Top Speed'
+	String get topSpeed => 'Top Speed';
+
+	/// en: 'Charging Time'
+	String get chargingTime => 'Charging Time';
+
+	/// en: 'Weight'
+	String get weight => 'Weight';
+
+	/// en: 'Motor Power'
+	String get motorPower => 'Motor Power';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -134,6 +212,32 @@ extension on Translations {
 			'alreadyHaveAccount' => 'Already have an account?',
 			'registerSuccess' => 'Account created successfully',
 			'loginSuccess' => 'Login successful',
+			'appTitle' => 'Electrum Bikes',
+			'appSubtitle' => 'Electric Mobility',
+			'rentalPackages' => 'Rental Packages',
+			'rentalPackagesDescription' => 'Choose the plan that fits your lifestyle.',
+			'electrumBikes' => 'Electrum Bikes',
+			'electrumBikesDescription' => 'Discover our fleet of premium electric bikes.',
+			'range' => 'Range',
+			'viewDetails' => 'View Details',
+			'available' => 'Available',
+			'limited' => 'Limited',
+			'unavailable' => 'Unavailable',
+			'mostPopular' => 'Most Popular',
+			'day' => 'Day',
+			'week' => 'Week',
+			'month' => 'Month',
+			'retry' => 'Retry',
+			'noBikesAvailable' => 'No bikes available',
+			'noPackagesAvailable' => 'No packages available',
+			'noPromotionsAvailable' => 'No promotions available',
+			'validUntil' => 'Valid until',
+			'backToBikes' => '← Back to Bikes',
+			'interestedToRent' => 'I\'m Interested to Rent',
+			'topSpeed' => 'Top Speed',
+			'chargingTime' => 'Charging Time',
+			'weight' => 'Weight',
+			'motorPower' => 'Motor Power',
 			_ => null,
 		};
 	}

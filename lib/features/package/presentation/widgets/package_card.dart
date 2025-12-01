@@ -1,3 +1,4 @@
+import 'package:electrum/core/localization/i18n/strings.g.dart';
 import 'package:electrum/core/ui/styles/style.dart';
 import 'package:electrum/features/package/domain/entities/package.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class PackageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final textStyles = context.textStyles;
+    final t = context.t;
 
     return InkWell(
       onTap: onTap,
@@ -55,7 +57,7 @@ class PackageCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      'Most Popular',
+                      t.mostPopular,
                       style: textStyles.p.regular
                           .applyColor(colors.onPrimary)
                           .copyWith(fontSize: 10),
@@ -65,21 +67,21 @@ class PackageCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             _PriceRow(
-              label: 'Day',
+              label: t.day,
               price: package.dailyPrice,
               colors: colors,
               textStyles: textStyles,
             ),
             const SizedBox(height: 8),
             _PriceRow(
-              label: 'Week',
+              label: t.week,
               price: package.weeklyPrice,
               colors: colors,
               textStyles: textStyles,
             ),
             const SizedBox(height: 8),
             _PriceRow(
-              label: 'Month',
+              label: t.month,
               price: package.monthlyPrice,
               colors: colors,
               textStyles: textStyles,

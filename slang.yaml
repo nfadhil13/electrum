@@ -1,5 +1,0 @@
-base_locale: en
-input_directory: lib/core/localization/i18n
-output_directory: lib/core/localization/generated
-translation_class_visibility: public
-use_flutter_gen: false

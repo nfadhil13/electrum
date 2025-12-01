@@ -30,6 +30,7 @@ dependencies:
 dev_dependencies:
   injectable_generator: ^2.7.0
   build_runner: ^2.7.0
+  slang_build_runner: ^4.11.0
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
@@ -37,3 +38,14 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
+targets:
+  $default:
+    builders:
+      slang_build_runner:
+        option:
+          base_locale: en
+          input_directory: lib/core/localization/i18n
+          output_directory: lib/core/localization/generated
+          translation_class_visibility: public
+          use_flutter_gen: false

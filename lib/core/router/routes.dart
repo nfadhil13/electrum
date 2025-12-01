@@ -9,3 +9,7 @@ class AppRoutes {
   static const String home = '/home';
   static const String bikeDetails = '/bike/:id';
 }
+
+extension AppRoutesX on String {
+  String withParameter(String key, String value) => replaceAll(':$key', value);
+}

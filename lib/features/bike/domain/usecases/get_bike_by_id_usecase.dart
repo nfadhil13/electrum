@@ -2,7 +2,9 @@ import 'package:electrum/core/types/result.dart';
 import 'package:electrum/core/types/usecase.dart';
 import 'package:electrum/features/bike/domain/entities/bike.dart';
 import 'package:electrum/features/bike/domain/repositories/bike_repo.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class GetBikeByIdUsecase extends Usecase<String, Bike> {
   final BikeRepo _repo;
   GetBikeByIdUsecase(super.sessionHandler, this._repo);
@@ -11,4 +13,3 @@ class GetBikeByIdUsecase extends Usecase<String, Bike> {
   Future<Resource<Bike>> execute(String params) =>
       _repo.getBikeById(params).asResource;
 }
-

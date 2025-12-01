@@ -14,7 +14,7 @@ import 'package:electrum/core/ui/widgets/layout/loading_container.dart';
 import 'package:electrum/core/ui/widgets/wrapper/bloc_provider_wrapper.dart';
 import 'package:electrum/features/auth/domain/entities/register_form.dart';
 import 'package:electrum/features/auth/presentation/cubits/register/register_cubit.dart';
-import 'package:electrum/core/localization/generated/strings.g.dart';
+import 'package:electrum/core/localization/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

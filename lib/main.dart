@@ -1,8 +1,8 @@
 import 'package:electrum/core/env/environment.dart';
+import 'package:electrum/core/localization/i18n/strings.g.dart';
 import 'package:electrum/core/router/router.dart';
 import 'package:electrum/core/service_locator/service_locator.dart';
 import 'package:electrum/core/ui/styles/style.dart';
-import 'package:electrum/core/localization/generated/strings.g.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,8 +19,9 @@ class MyApp extends StatelessWidget {
     return TranslationProvider(
       child: Builder(
         builder: (context) {
+          final t = context.t;
           return MaterialApp.router(
-            title: 'Flutter Demo',
+            title: t.appTitle,
             routerConfig: AppRouter.router,
 
             supportedLocales: AppLocaleUtils.supportedLocales,

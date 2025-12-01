@@ -1,11 +1,14 @@
+import 'package:electrum/core/localization/i18n/strings.g.dart';
+import 'package:electrum/core/router/router.dart';
 import 'package:electrum/core/service_locator/service_locator.dart';
 import 'package:electrum/core/ui/responsive/responsive.dart';
 import 'package:electrum/core/ui/styles/style.dart';
-import 'package:electrum/core/ui/widgets/buttons/filled_button.dart';
+import 'package:electrum/core/ui/widgets/error/electrum_error_widget.dart';
 import 'package:electrum/features/bike/presentation/cubits/bike_list/bike_list_cubit.dart';
-import 'package:electrum/features/bike/presentation/widgets/bike_card_grid.dart';
+import 'package:electrum/features/bike/presentation/widgets/card/bike_card_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
 class BikeStatefulGrid extends StatelessWidget {
@@ -22,8 +25,8 @@ class BikeStatefulGrid extends StatelessWidget {
           }
 
           if (state is BikeListError) {
-            return _BikeCardGridError(
-              error: state.exception.message,
+            return ElectrumErrorWidget.fromException(
+              state.exception,
               onRetry: () => context.read<BikeListCubit>().loadBikes(),
             );
           }
@@ -32,7 +35,12 @@ class BikeStatefulGrid extends StatelessWidget {
             if (state.bikes.isEmpty) {
               return const _BikeCardGridEmpty();
             }
-            return BikeCardGrid(bikes: state.bikes);
+            return BikeCardGrid(
+              bikes: state.bikes,
+              onBikeTap: (bike) {
+                context.go(AppRoutes.bikeDetails.withParameter('id', bike.id));
+              },
+            );
           }
 
           return const SizedBox.shrink();
@@ -48,7 +56,7 @@ class _BikeCardGridShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BreakPointWidget(
-      xs: _buildShimmerGrid(crossAxisCount: 1),
+      xs: _buildShimmerGrid(crossAxisCount: 2),
       sm: _buildShimmerGrid(crossAxisCount: 2),
       md: _buildShimmerGrid(crossAxisCount: 3),
     );
@@ -156,41 +164,6 @@ class _ShimmerCard extends StatelessWidget {
   }
 }
 
-class _BikeCardGridError extends StatelessWidget {
-  final String error;
-  final VoidCallback onRetry;
-
-  const _BikeCardGridError({required this.error, required this.onRetry});
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    final textStyles = context.textStyles;
-
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: colors.surfaceVariant,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: colors.error, width: 1),
-      ),
-      child: Column(
-        children: [
-          Icon(Icons.error_outline, color: colors.error, size: 48),
-          const SizedBox(height: 16),
-          Text(
-            error,
-            style: textStyles.p.applyColor(colors.onSurface),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16),
-          ElectrumFilledButton(text: 'Retry', onPressed: onRetry),
-        ],
-      ),
-    );
-  }
-}
-
 class _BikeCardGridEmpty extends StatelessWidget {
   const _BikeCardGridEmpty();
 
@@ -198,6 +171,7 @@ class _BikeCardGridEmpty extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final textStyles = context.textStyles;
+    final t = context.t;
 
     return Container(
       padding: const EdgeInsets.all(24),
@@ -215,7 +189,7 @@ class _BikeCardGridEmpty extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'No bikes available',
+            t.noBikesAvailable,
             style: textStyles.p.applyColor(colors.onSurfaceMuted),
             textAlign: TextAlign.center,
           ),

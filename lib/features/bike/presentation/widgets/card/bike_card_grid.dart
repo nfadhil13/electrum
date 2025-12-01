@@ -1,20 +1,19 @@
 import 'package:electrum/core/ui/responsive/responsive.dart';
 import 'package:electrum/features/bike/domain/entities/bike.dart';
-import 'package:electrum/features/bike/presentation/widgets/bike_card.dart';
+import 'package:electrum/features/bike/presentation/widgets/card/bike_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class BikeCardGrid extends StatelessWidget {
   final List<Bike> bikes;
-  final VoidCallback? Function(Bike)? onBikeTap;
+  final void Function(Bike)? onBikeTap;
 
   const BikeCardGrid({super.key, required this.bikes, this.onBikeTap});
 
   @override
   Widget build(BuildContext context) {
     return BreakPointWidget(
-      xs: _buildGrid(context, crossAxisCount: 1),
-      sm: _buildGrid(context, crossAxisCount: 2),
+      xs: _buildGrid(context, crossAxisCount: 2),
       md: _buildGrid(context, crossAxisCount: 3),
     );
   }

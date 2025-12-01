@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class Interest extends Equatable {
+class BikeInterest extends Equatable {
   final String id;
   final String userId;
   final String bikeId;
@@ -10,7 +10,7 @@ class Interest extends Equatable {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  const Interest({
+  const BikeInterest({
     required this.id,
     required this.userId,
     required this.bikeId,

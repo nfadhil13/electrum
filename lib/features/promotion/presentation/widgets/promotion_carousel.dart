@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:electrum/core/ext/color.dart';
+import 'package:electrum/core/localization/i18n/strings.g.dart';
 import 'package:electrum/core/types/image_flutter.dart';
 import 'package:electrum/core/ui/styles/style.dart';
 import 'package:electrum/features/promotion/domain/entities/promotion.dart';
@@ -59,6 +60,7 @@ class PromotionCarouselItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final textStyles = context.textStyles;
+    final t = context.t;
 
     return GestureDetector(
       onTap: onTap,
@@ -136,7 +138,7 @@ class PromotionCarouselItem extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          'Valid until ${DateFormat('MMM dd, yyyy').format(promotion.validUntil)}',
+                          '${t.validUntil} ${DateFormat('MMM dd, yyyy').format(promotion.validUntil)}',
                           style: textStyles.p.regular
                               .applyColor(colors.surface)
                               .copyWith(fontSize: 12),

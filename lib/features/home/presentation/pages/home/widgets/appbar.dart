@@ -10,6 +10,7 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final textStyles = context.textStyles;
+    final t = context.t;
 
     return BlocProvider(
       create: (context) => getIt<LogoutCubit>(),
@@ -27,11 +28,11 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Electrum Bikes',
+                  t.appTitle,
                   style: textStyles.h4.bold.applyColor(colors.onSurface),
                 ),
                 Text(
-                  'Electric Mobility',
+                  t.appSubtitle,
                   style: textStyles.p.regular
                       .applyColor(colors.onSurfaceMuted)
                       .copyWith(fontSize: 12),

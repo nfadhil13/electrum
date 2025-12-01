@@ -42,26 +42,30 @@ import 'package:electrum/features/auth/presentation/cubits/logout/logout_cubit.d
     as _i377;
 import 'package:electrum/features/auth/presentation/cubits/register/register_cubit.dart'
     as _i657;
+import 'package:electrum/features/bike/data/datasources/bike_interest_network_dts.dart'
+    as _i221;
 import 'package:electrum/features/bike/data/datasources/bike_network_dts.dart'
     as _i328;
+import 'package:electrum/features/bike/data/datasources/remote/mocked/bike_interest_mocked_network_dts.dart'
+    as _i865;
 import 'package:electrum/features/bike/data/datasources/remote/mocked/bike_mocked_network_dts.dart'
     as _i1073;
+import 'package:electrum/features/bike/data/repositories/bike_interest_repo_impl.dart'
+    as _i585;
 import 'package:electrum/features/bike/data/repositories/bike_repo_impl.dart'
     as _i718;
+import 'package:electrum/features/bike/domain/repositories/bike_interest_repo.dart'
+    as _i427;
 import 'package:electrum/features/bike/domain/repositories/bike_repo.dart'
     as _i802;
+import 'package:electrum/features/bike/domain/usecases/get_bike_by_id_usecase.dart'
+    as _i324;
 import 'package:electrum/features/bike/domain/usecases/get_bikes_usecase.dart'
     as _i776;
+import 'package:electrum/features/bike/presentation/cubits/bike_detail/bike_detail_cubit.dart'
+    as _i385;
 import 'package:electrum/features/bike/presentation/cubits/bike_list/bike_list_cubit.dart'
     as _i634;
-import 'package:electrum/features/interest/data/datasources/interest_network_dts.dart'
-    as _i297;
-import 'package:electrum/features/interest/data/datasources/remote/mocked/interest_mocked_network_dts.dart'
-    as _i781;
-import 'package:electrum/features/interest/data/repositories/interest_repo_impl.dart'
-    as _i951;
-import 'package:electrum/features/interest/domain/repositories/interest_repo.dart'
-    as _i912;
 import 'package:electrum/features/package/data/datasources/package_network_dts.dart'
     as _i884;
 import 'package:electrum/features/package/data/datasources/remote/mocked/package_mocked_network_dts.dart'
@@ -107,8 +111,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i874.UserEntityLocalMapper>(
       () => _i874.UserEntityLocalMapper(),
     );
-    gh.lazySingleton<_i297.InterestNetworkDts>(
-      () => _i781.InterestMockedNetworkDts(),
+    gh.lazySingleton<_i221.BikeInterestNetworkDts>(
+      () => _i865.BikeInterestMockedNetworkDts(),
       registerFor: {_mocked},
     );
     gh.lazySingleton<_i328.BikeNetworkDts>(
@@ -124,6 +128,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i874.UserEntityLocalMapper>(),
       ),
     );
+    gh.factory<_i427.BikeInterestRepo>(
+      () => _i585.BikeInterestRepoImpl(gh<_i221.BikeInterestNetworkDts>()),
+    );
     gh.factory<_i802.BikeRepo>(
       () => _i718.BikeRepoImpl(gh<_i328.BikeNetworkDts>()),
     );
@@ -133,9 +140,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i369.PackageRepo>(
       () => _i115.PackageRepoImpl(gh<_i884.PackageNetworkDts>()),
-    );
-    gh.factory<_i912.InterestRepo>(
-      () => _i951.InterestRepoImpl(gh<_i297.InterestNetworkDts>()),
     );
     gh.lazySingleton<_i541.AuthNetworkDts>(
       () => _i891.AuthMockedNetworkDts(),
@@ -157,6 +161,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i541.AuthNetworkDts>(),
         gh<_i464.AuthLocalDts>(),
         gh<_i700.SessionHandler>(),
+      ),
+    );
+    gh.factory<_i324.GetBikeByIdUsecase>(
+      () => _i324.GetBikeByIdUsecase(
+        gh<_i700.SessionHandler>(),
+        gh<_i802.BikeRepo>(),
       ),
     );
     gh.factory<_i776.GetBikesUsecase>(
@@ -208,6 +218,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i657.RegisterCubit>(
       () => _i657.RegisterCubit(gh<_i741.RegisterUsecase>()),
+    );
+    gh.factory<_i385.BikeDetailCubit>(
+      () => _i385.BikeDetailCubit(gh<_i324.GetBikeByIdUsecase>()),
     );
     gh.factory<_i467.PromotionListCubit>(
       () => _i467.PromotionListCubit(gh<_i1036.GetPromotionsUsecase>()),

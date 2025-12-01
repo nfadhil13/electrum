@@ -1,4 +1,4 @@
-import 'package:electrum/core/localization/generated/strings.g.dart';
+import 'package:electrum/core/localization/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 extension LocalExtension on BuildContext {

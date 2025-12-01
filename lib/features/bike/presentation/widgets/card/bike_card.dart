@@ -1,8 +1,9 @@
+import 'package:electrum/core/localization/i18n/strings.g.dart';
 import 'package:electrum/core/types/image_flutter.dart';
 import 'package:electrum/core/ui/styles/style.dart';
 import 'package:electrum/core/ui/widgets/buttons/filled_button.dart';
-import 'package:electrum/features/bike/domain/entities/availability.dart';
 import 'package:electrum/features/bike/domain/entities/bike.dart';
+import 'package:electrum/features/bike/presentation/widgets/bike_availability_badge.dart';
 import 'package:flutter/material.dart';
 
 class BikeCard extends StatelessWidget {
@@ -15,6 +16,7 @@ class BikeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final textStyles = context.textStyles;
+    final t = context.t;
 
     return InkWell(
       onTap: onTap,
@@ -55,11 +57,7 @@ class BikeCard extends StatelessWidget {
                 Positioned(
                   top: 8,
                   right: 8,
-                  child: _AvailabilityBadge(
-                    availability: bike.availability,
-                    colors: colors,
-                    textStyles: textStyles,
-                  ),
+                  child: BikeAvailabilityBadge(availability: bike.availability),
                 ),
               ],
             ),
@@ -82,7 +80,7 @@ class BikeCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        'Range: ${bike.rangeInKm.toStringAsFixed(0)} km',
+                        '${t.range}: ${bike.rangeInKm.toStringAsFixed(0)} km',
                         style: textStyles.p
                             .applyColor(colors.onSurfaceMuted)
                             .copyWith(fontSize: 14),
@@ -98,7 +96,7 @@ class BikeCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   ElectrumFilledButton(
-                    text: 'View Details',
+                    text: t.viewDetails,
                     width: double.infinity,
                     onPressed: onTap,
                   ),
@@ -107,64 +105,6 @@ class BikeCard extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _AvailabilityBadge extends StatelessWidget {
-  final Availability availability;
-  final AppColors colors;
-  final AppTextStyles textStyles;
-
-  const _AvailabilityBadge({
-    required this.availability,
-    required this.colors,
-    required this.textStyles,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    Color badgeColor;
-    String label;
-    IconData icon;
-
-    switch (availability) {
-      case Availability.available:
-        badgeColor = colors.success;
-        label = 'Available';
-        icon = Icons.check_circle;
-        break;
-      case Availability.limited:
-        badgeColor = const Color(0xFFFFA500);
-        label = 'Limited';
-        icon = Icons.warning;
-        break;
-      case Availability.unavailable:
-        badgeColor = colors.error;
-        label = 'Unavailable';
-        icon = Icons.cancel;
-        break;
-    }
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: badgeColor,
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 12, color: colors.surface),
-          const SizedBox(width: 4),
-          Text(
-            label,
-            style: textStyles.p.regular
-                .applyColor(colors.surface)
-                .copyWith(fontSize: 10),
-          ),
-        ],
       ),
     );
   }
