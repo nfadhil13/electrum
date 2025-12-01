@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:electrum/core/types/exception/base.dart';
 import 'package:electrum/core/types/result.dart';
+import 'package:electrum/features/bike/domain/entities/availability.dart';
 import 'package:electrum/features/bike/domain/entities/bike.dart';
 import 'package:electrum/features/bike/domain/usecases/get_bikes_usecase.dart';
 import 'package:equatable/equatable.dart';
@@ -14,16 +15,15 @@ class BikeListCubit extends Cubit<BikeListState> {
 
   BikeListCubit(this._getBikesUsecase) : super(const BikeListLoading());
 
-  Future<void> loadBikes() async {
+  Future<void> loadBikes({Availability? availability}) async {
     emit(const BikeListLoading());
 
-    final result = await _getBikesUsecase();
-
+    final result = await _getBikesUsecase(availability);
     switch (result) {
       case Success(data: final bikes):
         emit(BikeListSuccess(bikes));
       case Failure(exception: final exception):
-        emit(BikeListError(exception));
+        emit(BikeListError(exception, onRetry: loadBikes));
     }
   }
 }

@@ -4,6 +4,7 @@ import 'package:electrum/core/service_locator/service_locator.dart';
 import 'package:electrum/core/ui/styles/style.dart';
 import 'package:electrum/core/ui/widgets/icons/app_icon.dart';
 import 'package:electrum/features/auth/presentation/cubits/logout/logout_cubit.dart';
+import 'package:electrum/features/bike/domain/entities/availability.dart';
 import 'package:electrum/features/bike/presentation/widgets/card/bike_card_grid_stateful.dart';
 import 'package:electrum/features/package/presentation/widgets/package_card_grid_stateful.dart';
 import 'package:electrum/features/promotion/presentation/widgets/promotion_card_grid_stateful.dart';
@@ -42,6 +43,7 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 32),
               // Bikes Section
               Padding(padding: horizontalPadding, child: const _BikesSection()),
+              const SizedBox(height: 32),
             ],
           ),
         ),

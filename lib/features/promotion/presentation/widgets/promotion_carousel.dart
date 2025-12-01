@@ -40,10 +40,12 @@ class PromotionCarousel extends StatelessWidget {
         height: height,
         viewportFraction: 1.0,
         autoPlay: true,
+
         autoPlayInterval: const Duration(seconds: 5),
         autoPlayAnimationDuration: const Duration(milliseconds: 800),
         autoPlayCurve: Curves.fastOutSlowIn,
         enlargeCenterPage: false,
+
         scrollDirection: Axis.horizontal,
       ),
     );

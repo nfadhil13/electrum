@@ -7,14 +7,31 @@ class _BikeDetailContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            _BikeImageSection(bike: bike),
-            _BikeDetailsSection(bike: bike),
-          ],
+    final imageWidth = MediaQuery.of(context).size.width * 0.4;
+    return Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: BreakPointWidget(
+            xs: Column(
+              children: [
+                _BikeImageSection(bike: bike),
+                _BikeDetailsSection(bike: bike),
+              ],
+            ),
+            md: Column(
+              children: [
+                LeftSameHeightWidget(
+                  leftWidth: imageWidth,
+                  left: (context, height) => _BikeImageSection(
+                    bike: bike,
+                    imageSize: Size(imageWidth, height),
+                  ),
+                  right: _BikeDetailsSection(bike: bike),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -23,34 +40,39 @@ class _BikeDetailContent extends StatelessWidget {
 
 class _BikeImageSection extends StatelessWidget {
   final BikeDetailEntity bike;
+  final Size? imageSize;
 
-  const _BikeImageSection({required this.bike});
+  const _BikeImageSection({required this.bike, this.imageSize});
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final image = Image(
+      image: bike.image.provider,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) {
+        return Container(
+          color: colors.surfaceVariant,
+          child: Icon(
+            Icons.image_not_supported,
+            color: colors.onSurfaceMuted,
+            size: 48,
+          ),
+        );
+      },
+    );
 
     return Stack(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: AspectRatio(
-            aspectRatio: 4 / 3,
-            child: Image(
-              image: bike.image.provider,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: colors.surfaceVariant,
-                  child: Icon(
-                    Icons.image_not_supported,
-                    color: colors.onSurfaceMuted,
-                    size: 48,
-                  ),
-                );
-              },
-            ),
-          ),
+          child: imageSize != null
+              ? SizedBox(
+                  width: imageSize!.width,
+                  height: imageSize!.height,
+                  child: image,
+                )
+              : AspectRatio(aspectRatio: 4 / 3, child: image),
         ),
         Positioned(
           top: 16,

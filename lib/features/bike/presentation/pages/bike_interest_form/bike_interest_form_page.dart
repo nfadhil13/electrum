@@ -25,6 +25,7 @@ class BikeInterestFormPage extends StatelessWidget {
   static Future<bool> show(BuildContext context, String bikeId) async {
     final result = await showDialog(
       context: context,
+
       builder: (context) => BikeInterestFormPage(bikeId: bikeId),
     );
     return result ?? false;
@@ -54,6 +55,7 @@ class _BikeInterestFormContent extends StatelessWidget {
         (state) => state.isLoading,
       ),
       child: Dialog(
+        insetPadding: const EdgeInsets.symmetric(horizontal: 12),
         backgroundColor: context.colors.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Container(

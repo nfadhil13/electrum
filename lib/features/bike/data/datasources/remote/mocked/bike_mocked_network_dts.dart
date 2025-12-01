@@ -21,13 +21,13 @@ class BikeMockedNetworkDts implements BikeNetworkDts {
 
   @override
   Future<List<BikeEntity>> getBikes({Availability? availability}) async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 3));
     if (availability == null) {
-      return _bikeMockDB.bikes;
+      return [..._bikeMockDB.bikes];
     }
-    return _bikeMockDB.bikes
-        .where((bike) => bike.availability == availability)
-        .toList();
+    return [
+      ..._bikeMockDB.bikes,
+    ].where((bike) => bike.availability == availability).toList();
   }
 
   @override

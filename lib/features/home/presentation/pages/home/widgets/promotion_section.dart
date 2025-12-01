@@ -5,7 +5,15 @@ class _PromotionSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PromotionStatefulCarousel();
+    final mediaQuery = MediaQuery.of(context);
+    final height =
+        (mediaQuery.size.height -
+            mediaQuery.padding.top -
+            mediaQuery.padding.bottom) *
+        .9;
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: height),
+      child: const PromotionStatefulCarousel(),
+    );
   }
 }
-

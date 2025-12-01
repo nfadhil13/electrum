@@ -4,6 +4,7 @@ import 'package:electrum/core/service_locator/service_locator.dart';
 import 'package:electrum/core/ui/responsive/responsive.dart';
 import 'package:electrum/core/ui/styles/style.dart';
 import 'package:electrum/core/ui/widgets/error/electrum_error_widget.dart';
+import 'package:electrum/features/bike/domain/entities/availability.dart';
 import 'package:electrum/features/bike/presentation/cubits/bike_list/bike_list_cubit.dart';
 import 'package:electrum/features/bike/presentation/widgets/card/bike_card_grid.dart';
 import 'package:flutter/material.dart';
@@ -11,31 +12,73 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
-class BikeStatefulGrid extends StatelessWidget {
-  const BikeStatefulGrid({super.key});
+class BikeStatefulGrid extends StatefulWidget {
+  final Availability? filter;
+
+  const BikeStatefulGrid({super.key, this.filter});
+
+  @override
+  State<BikeStatefulGrid> createState() => _BikeStatefulGridState();
+}
+
+class _BikeStatefulGridState extends State<BikeStatefulGrid> {
+  late final BikeListCubit _cubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _cubit = getIt<BikeListCubit>();
+    _cubit.loadBikes(availability: widget.filter);
+  }
+
+  @override
+  void didUpdateWidget(BikeStatefulGrid oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.filter != widget.filter) {
+      _cubit.loadBikes(availability: widget.filter);
+    }
+  }
+
+  @override
+  void dispose() {
+    _cubit.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<BikeListCubit>()..loadBikes(),
-      child: BlocBuilder<BikeListCubit, BikeListState>(
-        builder: (context, state) => switch (state) {
+    return BlocProvider.value(
+      value: _cubit,
+      child: const _BikeStatefulGridContent(),
+    );
+  }
+}
+
+class _BikeStatefulGridContent extends StatelessWidget {
+  const _BikeStatefulGridContent();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<BikeListCubit, BikeListState>(
+      builder: (context, state) {
+        print(state);
+        return switch (state) {
           BikeListLoading() => const _BikeCardGridShimmer(),
           BikeListError() => ElectrumErrorWidget.fromException(
             state.exception,
-            onRetry: () => context.read<BikeListCubit>().loadBikes(),
+            onRetry: () => state.onRetry(),
           ),
           BikeListSuccess() =>
             state.bikes.isEmpty
                 ? const _BikeCardGridEmpty()
                 : BikeCardGrid(
                     bikes: state.bikes,
-                    onBikeTap: (bike) => context.go(
+                    onBikeTap: (bike) => context.push(
                       AppRoutes.bikeDetails.withParameter('id', bike.id),
                     ),
                   ),
-        },
-      ),
+        };
+      },
     );
   }
 }
@@ -83,72 +126,7 @@ class _ShimmerCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: colors.outline, width: 1),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 180,
-              decoration: BoxDecoration(
-                color: colors.onSurfaceVariant,
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(12),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 20,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: colors.onSurfaceVariant,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    height: 14,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: colors.onSurfaceVariant,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Container(
-                    height: 14,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: colors.onSurfaceVariant,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    height: 14,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      color: colors.onSurfaceVariant,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Container(
-                    height: 40,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: colors.onSurfaceVariant,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        child: const SizedBox.shrink(),
       ),
     );
   }

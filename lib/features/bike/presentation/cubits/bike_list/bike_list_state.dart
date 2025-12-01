@@ -24,9 +24,10 @@ class BikeListSuccess extends BikeListState {
 
 class BikeListError extends BikeListState {
   final BaseException exception;
+  final void Function() onRetry;
 
-  const BikeListError(this.exception);
+  const BikeListError(this.exception, {required this.onRetry});
 
   @override
-  List<Object?> get props => [exception];
+  List<Object?> get props => [exception, onRetry];
 }
