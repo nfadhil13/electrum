@@ -8,6 +8,7 @@ class AppRoutes {
   static const String register = '/register';
   static const String home = '/home';
   static const String bikeDetails = '/bike/:id';
+  static const String bikeInterestForm = '/bike/:id/interest-form';
 }
 
 extension AppRoutesX on String {

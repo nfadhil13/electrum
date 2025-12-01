@@ -5,11 +5,36 @@ import 'package:electrum/features/bike/domain/entities/availability.dart';
 import 'package:electrum/features/bike/domain/entities/bike.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: BikeNetworkDts, env: [AppEnvironment.mocked])
+@Injectable(as: BikeNetworkDts, env: [AppEnvironment.mocked])
 class BikeMockedNetworkDts implements BikeNetworkDts {
+  final BikeMockDB _bikeMockDB;
+  BikeMockedNetworkDts(this._bikeMockDB);
+
+  @override
+  Future<List<Bike>> getBikes({Availability? availability}) async {
+    if (availability == null) {
+      return _bikeMockDB.bikes;
+    }
+    return _bikeMockDB.bikes
+        .where((bike) => bike.availability == availability)
+        .toList();
+  }
+
+  @override
+  Future<Bike> getBikeById(String id) async {
+    final bike = _bikeMockDB.bikes.firstWhere(
+      (bike) => bike.id == id,
+      orElse: () => throw Exception('Bike not found'),
+    );
+    return bike;
+  }
+}
+
+@LazySingleton(env: [AppEnvironment.mocked])
+class BikeMockDB {
   final List<Bike> _bikes = [];
 
-  BikeMockedNetworkDts() {
+  BikeMockDB() {
     _bikes.addAll([
       Bike(
         id: '1',
@@ -104,21 +129,5 @@ class BikeMockedNetworkDts implements BikeNetworkDts {
     ]);
   }
 
-  @override
-  Future<List<Bike>> getBikes({Availability? availability}) async {
-    if (availability == null) {
-      return List.from(_bikes);
-    }
-    return _bikes.where((bike) => bike.availability == availability).toList();
-  }
-
-  @override
-  Future<Bike> getBikeById(String id) async {
-    final bike = _bikes.firstWhere(
-      (bike) => bike.id == id,
-      orElse: () => throw Exception('Bike not found'),
-    );
-    return bike;
-  }
+  List<Bike> get bikes => List.from(_bikes);
 }
-

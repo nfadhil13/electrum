@@ -181,6 +181,42 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Motor Power'
 	String get motorPower => 'Motor Power';
+
+	/// en: 'Rental Interest Form'
+	String get rentalInterestForm => 'Rental Interest Form';
+
+	/// en: 'Preferred Start Date'
+	String get preferredStartDate => 'Preferred Start Date';
+
+	/// en: 'dd/mm/yyyy'
+	String get preferredStartDatePlaceholder => 'dd/mm/yyyy';
+
+	/// en: 'Pickup Area'
+	String get pickupArea => 'Pickup Area';
+
+	/// en: 'Select pickup location'
+	String get pickupAreaPlaceholder => 'Select pickup location';
+
+	/// en: 'Contact (Email or Phone)'
+	String get contact => 'Contact (Email or Phone)';
+
+	/// en: 'Email@mail.com'
+	String get contactPlaceholder => 'Email@mail.com';
+
+	/// en: 'Additional Notes'
+	String get additionalNotes => 'Additional Notes';
+
+	/// en: 'Any specific requirements or questions...'
+	String get additionalNotesPlaceholder => 'Any specific requirements or questions...';
+
+	/// en: 'Cancel'
+	String get cancel => 'Cancel';
+
+	/// en: 'Submit Request'
+	String get submitRequest => 'Submit Request';
+
+	/// en: 'Interest submitted successfully'
+	String get interestSubmittedSuccessfully => 'Interest submitted successfully';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -238,6 +274,18 @@ extension on Translations {
 			'chargingTime' => 'Charging Time',
 			'weight' => 'Weight',
 			'motorPower' => 'Motor Power',
+			'rentalInterestForm' => 'Rental Interest Form',
+			'preferredStartDate' => 'Preferred Start Date',
+			'preferredStartDatePlaceholder' => 'dd/mm/yyyy',
+			'pickupArea' => 'Pickup Area',
+			'pickupAreaPlaceholder' => 'Select pickup location',
+			'contact' => 'Contact (Email or Phone)',
+			'contactPlaceholder' => 'Email@mail.com',
+			'additionalNotes' => 'Additional Notes',
+			'additionalNotesPlaceholder' => 'Any specific requirements or questions...',
+			'cancel' => 'Cancel',
+			'submitRequest' => 'Submit Request',
+			'interestSubmittedSuccessfully' => 'Interest submitted successfully',
 			_ => null,
 		};
 	}

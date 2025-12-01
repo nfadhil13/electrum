@@ -1,19 +1,15 @@
-import 'package:equatable/equatable.dart';
-
-class BikeInterestFormEntity extends Equatable {
+class BikeInterestFormEntity {
   final String bikeId;
-  final DateTime preferredStartDate;
-  final String pickUpArea;
-  final String contact;
+  DateTime? preferredStartDate;
+  String? pickUpArea;
+  String? contact;
+  String? additionalNotes;
 
-  const BikeInterestFormEntity({
+  BikeInterestFormEntity({
     required this.bikeId,
-    required this.preferredStartDate,
-    required this.pickUpArea,
-    required this.contact,
+    this.preferredStartDate,
+    this.pickUpArea,
+    this.contact,
+    this.additionalNotes,
   });
-
-  @override
-  List<Object?> get props => [bikeId, preferredStartDate, pickUpArea, contact];
 }
-

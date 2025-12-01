@@ -6,32 +6,15 @@ import 'package:electrum/features/auth/domain/entities/register_form.dart';
 import 'package:electrum/features/auth/domain/entities/user.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: AuthNetworkDts, env: [AppEnvironment.mocked])
+@Injectable(as: AuthNetworkDts, env: [AppEnvironment.mocked])
 class AuthMockedNetworkDts implements AuthNetworkDts {
-  final Map<String, UserEntity> users = {};
+  final AuthMockDB _authMockDB;
+  AuthMockedNetworkDts(this._authMockDB);
 
-  AuthMockedNetworkDts() {
-    users['test@test.com'] = UserEntity(
-      id: '1',
-      fullName: 'Test User',
-      email: 'test@test.com',
-      password: 'test',
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    );
-    users['test2@test.com'] = UserEntity(
-      id: '2',
-      fullName: 'Test User 2',
-      email: 'test2@test.com',
-      password: 'test2',
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    );
-  }
   @override
   Future<UserEntity> login(LoginFormEntity loginForm) async {
     await Future.delayed(const Duration(seconds: 2));
-    final user = users[loginForm.email];
+    final user = _authMockDB.users[loginForm.email];
     if (user == null) {
       throw ApiError(statusCode: 404, message: ApiErrorType.userNotFound.name);
     }
@@ -51,7 +34,7 @@ class AuthMockedNetworkDts implements AuthNetworkDts {
 
   @override
   Future<UserEntity> register(RegisterFormEntity registerForm) {
-    if (users.containsKey(registerForm.email)) {
+    if (_authMockDB.users.containsKey(registerForm.email)) {
       throw ApiError(
         statusCode: 400,
         message: ApiErrorType.userAlreadyExists.name,
@@ -65,7 +48,31 @@ class AuthMockedNetworkDts implements AuthNetworkDts {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
-    users[registerForm.email] = user;
+    _authMockDB.users[registerForm.email] = user;
     return Future.value(user);
+  }
+}
+
+@LazySingleton(env: [AppEnvironment.mocked])
+class AuthMockDB {
+  final Map<String, UserEntity> users = {};
+
+  AuthMockDB() {
+    users['test@test.com'] = UserEntity(
+      id: '1',
+      fullName: 'Test User',
+      email: 'test@test.com',
+      password: 'test',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
+    users['test2@test.com'] = UserEntity(
+      id: '2',
+      fullName: 'Test User 2',
+      email: 'test2@test.com',
+      password: 'test2',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
   }
 }

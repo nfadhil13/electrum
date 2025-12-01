@@ -1,6 +1,8 @@
+import 'package:electrum/core/router/dialog_page.dart';
 import 'package:electrum/features/auth/presentation/pages/login/login_page.dart';
 import 'package:electrum/features/auth/presentation/pages/register/register_page.dart';
 import 'package:electrum/features/bike/presentation/pages/bike_detail/bike_detail_page.dart';
+import 'package:electrum/features/bike/presentation/pages/bike_interest_form/bike_interest_form_page.dart';
 import 'package:electrum/features/home/presentation/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -31,6 +33,15 @@ class AppRouter {
         builder: (context, state) {
           final bikeId = state.pathParameters['id'] ?? '';
           return BikeDetailPage(bikeId: bikeId);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.bikeInterestForm,
+        pageBuilder: (context, state) {
+          final bikeId = state.pathParameters['id'] ?? '';
+          return DialogPage(
+            builder: (context) => BikeInterestFormPage(bikeId: bikeId),
+          );
         },
       ),
     ],

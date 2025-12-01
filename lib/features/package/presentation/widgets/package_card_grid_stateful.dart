@@ -17,26 +17,16 @@ class PackageStatefulGrid extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<PackageListCubit>()..loadPackages(),
       child: BlocBuilder<PackageListCubit, PackageListState>(
-        builder: (context, state) {
-          if (state is PackageListLoading) {
-            return const _PackageCardGridShimmer();
-          }
-
-          if (state is PackageListError) {
-            return ElectrumErrorWidget.fromException(
-              state.exception,
-              onRetry: () => context.read<PackageListCubit>().loadPackages(),
-            );
-          }
-
-          if (state is PackageListSuccess) {
-            if (state.packages.isEmpty) {
-              return const _PackageCardGridEmpty();
-            }
-            return PackageCardGrid(packages: state.packages);
-          }
-
-          return const SizedBox.shrink();
+        builder: (context, state) => switch (state) {
+          PackageListLoading() => const _PackageCardGridShimmer(),
+          PackageListError() => ElectrumErrorWidget.fromException(
+            state.exception,
+            onRetry: () => context.read<PackageListCubit>().loadPackages(),
+          ),
+          PackageListSuccess() =>
+            state.packages.isEmpty
+                ? const _PackageCardGridEmpty()
+                : PackageCardGrid(packages: state.packages),
         },
       ),
     );

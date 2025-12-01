@@ -9,10 +9,6 @@ sealed class PackageListState extends Equatable {
   bool get isLoading => this is PackageListLoading;
 }
 
-class PackageListInitial extends PackageListState {
-  const PackageListInitial();
-}
-
 class PackageListLoading extends PackageListState {
   const PackageListLoading();
 }

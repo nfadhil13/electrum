@@ -12,7 +12,7 @@ part 'bike_detail_state.dart';
 class BikeDetailCubit extends Cubit<BikeDetailState> {
   final GetBikeByIdUsecase _getBikeByIdUsecase;
 
-  BikeDetailCubit(this._getBikeByIdUsecase) : super(const BikeDetailInitial());
+  BikeDetailCubit(this._getBikeByIdUsecase) : super(const BikeDetailLoading());
 
   Future<void> loadBike(String bikeId) async {
     emit(const BikeDetailLoading());
@@ -27,4 +27,3 @@ class BikeDetailCubit extends Cubit<BikeDetailState> {
     }
   }
 }
-

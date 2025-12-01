@@ -49,23 +49,13 @@ class BikeDetailPage extends BlocProviderWrapper<BikeDetailCubit> {
           ),
         ),
         body: BlocBuilder<BikeDetailCubit, BikeDetailState>(
-          builder: (context, state) {
-            if (state is BikeDetailLoading) {
-              return const _BikeDetailShimmer();
-            }
-
-            if (state is BikeDetailError) {
-              return ElectrumErrorWidget.fromException(
-                state.exception,
-                onRetry: () => bloc.loadBike(bikeId),
-              );
-            }
-
-            if (state is BikeDetailSuccess) {
-              return _BikeDetailContent(bike: state.bike);
-            }
-
-            return const SizedBox.shrink();
+          builder: (context, state) => switch (state) {
+            BikeDetailLoading() => const _BikeDetailShimmer(),
+            BikeDetailError() => ElectrumErrorWidget.fromException(
+              state.exception,
+              onRetry: () => bloc.loadBike(bikeId),
+            ),
+            BikeDetailSuccess() => _BikeDetailContent(bike: state.bike),
           },
         ),
       ),

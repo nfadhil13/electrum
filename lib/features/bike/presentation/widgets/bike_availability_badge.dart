@@ -25,7 +25,7 @@ class BikeAvailabilityBadge extends StatelessWidget {
         icon = Icons.check_circle;
         break;
       case Availability.limited:
-        badgeColor = const Color(0xFFFFA500);
+        badgeColor = colors.warning;
         label = t.limited;
         icon = Icons.warning;
         break;

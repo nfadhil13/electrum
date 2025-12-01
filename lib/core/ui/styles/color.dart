@@ -29,6 +29,9 @@ abstract class AppColors {
 
   // Outline colors
   Color get outline;
+
+  Color get warning;
+  Color get onWarning;
 }
 
 class LightColors implements AppColors {
@@ -79,6 +82,12 @@ class LightColors implements AppColors {
   // Outline colors
   @override
   Color get outline => const Color(0x1A000000);
+
+  @override
+  Color get warning => const Color(0xFFFFA500);
+
+  @override
+  Color get onWarning => const Color(0xFFFFFFFF);
 }
 
 class DarkColors implements AppColors {
@@ -129,4 +138,10 @@ class DarkColors implements AppColors {
 
   @override
   Color get onSurfaceMuted => const Color(0xFF64748b);
+
+  @override
+  Color get warning => const Color(0xFFFFA500);
+
+  @override
+  Color get onWarning => const Color(0xFF1F2937);
 }

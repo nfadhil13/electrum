@@ -45,6 +45,18 @@
   "topSpeed": "Top Speed",
   "chargingTime": "Charging Time",
   "weight": "Weight",
-  "motorPower": "Motor Power"
+  "motorPower": "Motor Power",
+  "rentalInterestForm": "Rental Interest Form",
+  "preferredStartDate": "Preferred Start Date",
+  "preferredStartDatePlaceholder": "dd/mm/yyyy",
+  "pickupArea": "Pickup Area",
+  "pickupAreaPlaceholder": "Select pickup location",
+  "contact": "Contact (Email or Phone)",
+  "contactPlaceholder": "Email@mail.com",
+  "additionalNotes": "Additional Notes",
+  "additionalNotesPlaceholder": "Any specific requirements or questions...",
+  "cancel": "Cancel",
+  "submitRequest": "Submit Request",
+  "interestSubmittedSuccessfully": "Interest submitted successfully"
 }
 

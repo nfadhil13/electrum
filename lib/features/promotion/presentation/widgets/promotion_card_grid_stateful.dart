@@ -17,30 +17,16 @@ class PromotionStatefulCarousel extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<PromotionListCubit>()..loadPromotions(),
       child: BlocBuilder<PromotionListCubit, PromotionListState>(
-        builder: (context, state) {
-          if (state is PromotionListLoading) {
-            return const _PromotionCardGridShimmer();
-          }
-
-          if (state is PromotionListError) {
-            return ElectrumErrorWidget.fromException(
-              state.exception,
-              onRetry: () =>
-                  context.read<PromotionListCubit>().loadPromotions(),
-            );
-          }
-
-          if (state is PromotionListSuccess) {
-            if (state.promotions.isEmpty) {
-              return const _PromotionCardGridEmpty();
-            }
-            return PromotionCarousel(
-              promotions: state.promotions,
-              height: height,
-            );
-          }
-
-          return const SizedBox.shrink();
+        builder: (context, state) => switch (state) {
+          PromotionListLoading() => const _PromotionCardGridShimmer(),
+          PromotionListError() => ElectrumErrorWidget.fromException(
+            state.exception,
+            onRetry: () => context.read<PromotionListCubit>().loadPromotions(),
+          ),
+          PromotionListSuccess() =>
+            state.promotions.isEmpty
+                ? const _PromotionCardGridEmpty()
+                : PromotionCarousel(promotions: state.promotions),
         },
       ),
     );

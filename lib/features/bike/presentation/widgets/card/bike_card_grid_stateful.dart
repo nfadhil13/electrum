@@ -19,31 +19,22 @@ class BikeStatefulGrid extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<BikeListCubit>()..loadBikes(),
       child: BlocBuilder<BikeListCubit, BikeListState>(
-        builder: (context, state) {
-          if (state is BikeListLoading) {
-            return const _BikeCardGridShimmer();
-          }
-
-          if (state is BikeListError) {
-            return ElectrumErrorWidget.fromException(
-              state.exception,
-              onRetry: () => context.read<BikeListCubit>().loadBikes(),
-            );
-          }
-
-          if (state is BikeListSuccess) {
-            if (state.bikes.isEmpty) {
-              return const _BikeCardGridEmpty();
-            }
-            return BikeCardGrid(
-              bikes: state.bikes,
-              onBikeTap: (bike) {
-                context.go(AppRoutes.bikeDetails.withParameter('id', bike.id));
-              },
-            );
-          }
-
-          return const SizedBox.shrink();
+        builder: (context, state) => switch (state) {
+          BikeListLoading() => const _BikeCardGridShimmer(),
+          BikeListError() => ElectrumErrorWidget.fromException(
+            state.exception,
+            onRetry: () => context.read<BikeListCubit>().loadBikes(),
+          ),
+          BikeListSuccess() =>
+            state.bikes.isEmpty
+                ? const _BikeCardGridEmpty()
+                : BikeCardGrid(
+                    bikes: state.bikes,
+                    onBikeTap: (bike) => context.goNamed(
+                      AppRoutes.bikeDetails,
+                      pathParameters: {'id': bike.id},
+                    ),
+                  ),
         },
       ),
     );

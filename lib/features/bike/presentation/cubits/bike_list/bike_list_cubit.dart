@@ -12,7 +12,7 @@ part 'bike_list_state.dart';
 class BikeListCubit extends Cubit<BikeListState> {
   final GetBikesUsecase _getBikesUsecase;
 
-  BikeListCubit(this._getBikesUsecase) : super(const BikeListInitial());
+  BikeListCubit(this._getBikesUsecase) : super(const BikeListLoading());
 
   Future<void> loadBikes() async {
     emit(const BikeListLoading());

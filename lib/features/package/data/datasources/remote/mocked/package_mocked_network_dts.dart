@@ -3,11 +3,22 @@ import 'package:electrum/features/package/data/datasources/package_network_dts.d
 import 'package:electrum/features/package/domain/entities/package.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: PackageNetworkDts, env: [AppEnvironment.mocked])
+@Injectable(as: PackageNetworkDts, env: [AppEnvironment.mocked])
 class PackageMockedNetworkDts implements PackageNetworkDts {
+  final PackageMockDB _packageMockDB;
+  PackageMockedNetworkDts(this._packageMockDB);
+
+  @override
+  Future<List<Package>> getPackages() async {
+    return _packageMockDB.packages;
+  }
+}
+
+@LazySingleton(env: [AppEnvironment.mocked])
+class PackageMockDB {
   final List<Package> _packages = [];
 
-  PackageMockedNetworkDts() {
+  PackageMockDB() {
     _packages.addAll([
       Package(
         id: '1',
@@ -61,9 +72,5 @@ class PackageMockedNetworkDts implements PackageNetworkDts {
     ]);
   }
 
-  @override
-  Future<List<Package>> getPackages() async {
-    return List.from(_packages);
-  }
+  List<Package> get packages => List.from(_packages);
 }
-

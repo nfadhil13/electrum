@@ -4,11 +4,22 @@ import 'package:electrum/features/promotion/data/datasources/promotion_network_d
 import 'package:electrum/features/promotion/domain/entities/promotion.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: PromotionNetworkDts, env: [AppEnvironment.mocked])
+@Injectable(as: PromotionNetworkDts, env: [AppEnvironment.mocked])
 class PromotionMockedNetworkDts implements PromotionNetworkDts {
+  final PromotionMockDB _promotionMockDB;
+  PromotionMockedNetworkDts(this._promotionMockDB);
+
+  @override
+  Future<List<Promotion>> getPromotions() async {
+    return _promotionMockDB.promotions;
+  }
+}
+
+@LazySingleton(env: [AppEnvironment.mocked])
+class PromotionMockDB {
   final List<Promotion> _promotions = [];
 
-  PromotionMockedNetworkDts() {
+  PromotionMockDB() {
     _promotions.addAll([
       Promotion(
         id: '1',
@@ -17,7 +28,8 @@ class PromotionMockedNetworkDts implements PromotionNetworkDts {
             'New riders get 20% off their first monthly rental. Use code WELCOME20',
         validUntil: DateTime(2025, 12, 31),
         image: ElectrumImageNetwork(
-          url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
+          url:
+              'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
         ),
       ),
       Promotion(
@@ -27,7 +39,8 @@ class PromotionMockedNetworkDts implements PromotionNetworkDts {
             'Rent for the weekend and get an extra day free. Available Fri-Mon',
         validUntil: DateTime(2025, 11, 30),
         image: ElectrumImageNetwork(
-          url: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800',
+          url:
+              'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800',
         ),
       ),
       Promotion(
@@ -37,15 +50,12 @@ class PromotionMockedNetworkDts implements PromotionNetworkDts {
             'Both you and your friend get \$50 credit when they complete their first rental',
         validUntil: DateTime(2026, 12, 31),
         image: ElectrumImageNetwork(
-          url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
+          url:
+              'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
         ),
       ),
     ]);
   }
 
-  @override
-  Future<List<Promotion>> getPromotions() async {
-    return List.from(_promotions);
-  }
+  List<Promotion> get promotions => List.from(_promotions);
 }
-

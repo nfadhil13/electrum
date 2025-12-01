@@ -4,7 +4,9 @@ import 'package:electrum/core/types/usecase.dart';
 import 'package:electrum/features/bike/domain/entities/bike_interest.dart';
 import 'package:electrum/features/bike/domain/entities/bike_interest_form.dart';
 import 'package:electrum/features/bike/domain/repositories/bike_interest_repo.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class SubmitBikeInterestUsecase
     extends Usecase<BikeInterestFormEntity, BikeInterest> {
   final BikeInterestRepo _repo;

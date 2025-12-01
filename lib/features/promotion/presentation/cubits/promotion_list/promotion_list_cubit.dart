@@ -13,7 +13,7 @@ class PromotionListCubit extends Cubit<PromotionListState> {
   final GetPromotionsUsecase _getPromotionsUsecase;
 
   PromotionListCubit(this._getPromotionsUsecase)
-    : super(const PromotionListInitial());
+    : super(const PromotionListLoading());
 
   Future<void> loadPromotions() async {
     emit(const PromotionListLoading());

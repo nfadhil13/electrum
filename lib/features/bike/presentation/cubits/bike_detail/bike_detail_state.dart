@@ -9,10 +9,6 @@ sealed class BikeDetailState extends Equatable {
   bool get isLoading => this is BikeDetailLoading;
 }
 
-class BikeDetailInitial extends BikeDetailState {
-  const BikeDetailInitial();
-}
-
 class BikeDetailLoading extends BikeDetailState {
   const BikeDetailLoading();
 }
@@ -34,4 +30,3 @@ class BikeDetailError extends BikeDetailState {
   @override
   List<Object?> get props => [exception];
 }
-

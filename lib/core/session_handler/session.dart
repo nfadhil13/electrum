@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 
 sealed class Session extends Equatable {
   const Session();
+
+  String getUserId();
 }
 
 class SessionMocked extends Session {
@@ -12,6 +14,9 @@ class SessionMocked extends Session {
 
   @override
   List<Object?> get props => [userId, metadata];
+
+  @override
+  String getUserId() => userId;
 }
 
 abstract class SessionHandler {

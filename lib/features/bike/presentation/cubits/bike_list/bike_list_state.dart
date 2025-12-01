@@ -9,10 +9,6 @@ sealed class BikeListState extends Equatable {
   bool get isLoading => this is BikeListLoading;
 }
 
-class BikeListInitial extends BikeListState {
-  const BikeListInitial();
-}
-
 class BikeListLoading extends BikeListState {
   const BikeListLoading();
 }

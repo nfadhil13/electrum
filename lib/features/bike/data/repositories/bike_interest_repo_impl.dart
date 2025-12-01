@@ -16,19 +16,9 @@ class BikeInterestRepoImpl implements BikeInterestRepo {
     String userId,
     BikeInterestFormEntity interestForm,
   ) async {
-    final interest = BikeInterest(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      userId: userId,
-      bikeId: interestForm.bikeId,
-      preferedStartDate: interestForm.preferredStartDate,
-      pickUpArea: interestForm.pickUpArea,
-      contact: interestForm.contact,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    );
-
     final submittedInterest = await _bikeInterestNetworkDts.submitInterest(
-      interest,
+      userId,
+      interestForm,
     );
     return RepoResult(data: submittedInterest);
   }

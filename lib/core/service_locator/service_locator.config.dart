@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -62,8 +62,12 @@ import 'package:electrum/features/bike/domain/usecases/get_bike_by_id_usecase.da
     as _i324;
 import 'package:electrum/features/bike/domain/usecases/get_bikes_usecase.dart'
     as _i776;
+import 'package:electrum/features/bike/domain/usecases/submit_bike_interest_usecase.dart'
+    as _i730;
 import 'package:electrum/features/bike/presentation/cubits/bike_detail/bike_detail_cubit.dart'
     as _i385;
+import 'package:electrum/features/bike/presentation/cubits/bike_interest_form/bike_interest_form_cubit.dart'
+    as _i299;
 import 'package:electrum/features/bike/presentation/cubits/bike_list/bike_list_cubit.dart'
     as _i634;
 import 'package:electrum/features/package/data/datasources/package_network_dts.dart'
@@ -111,14 +115,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i874.UserEntityLocalMapper>(
       () => _i874.UserEntityLocalMapper(),
     );
-    gh.lazySingleton<_i221.BikeInterestNetworkDts>(
-      () => _i865.BikeInterestMockedNetworkDts(),
-      registerFor: {_mocked},
-    );
-    gh.lazySingleton<_i328.BikeNetworkDts>(
-      () => _i1073.BikeMockedNetworkDts(),
-      registerFor: {_mocked},
-    );
     gh.lazySingleton<_i242.SecureStorage>(
       () => _i242.SecureStorageImpl(gh<_i558.FlutterSecureStorage>()),
     );
@@ -128,25 +124,28 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i874.UserEntityLocalMapper>(),
       ),
     );
-    gh.factory<_i427.BikeInterestRepo>(
-      () => _i585.BikeInterestRepoImpl(gh<_i221.BikeInterestNetworkDts>()),
-    );
-    gh.factory<_i802.BikeRepo>(
-      () => _i718.BikeRepoImpl(gh<_i328.BikeNetworkDts>()),
-    );
-    gh.lazySingleton<_i884.PackageNetworkDts>(
-      () => _i108.PackageMockedNetworkDts(),
+    gh.lazySingleton<_i891.AuthMockDB>(
+      () => _i891.AuthMockDB(),
       registerFor: {_mocked},
     );
-    gh.factory<_i369.PackageRepo>(
-      () => _i115.PackageRepoImpl(gh<_i884.PackageNetworkDts>()),
-    );
-    gh.lazySingleton<_i541.AuthNetworkDts>(
-      () => _i891.AuthMockedNetworkDts(),
+    gh.lazySingleton<_i865.BikeInterestMockDB>(
+      () => _i865.BikeInterestMockDB(),
       registerFor: {_mocked},
     );
-    gh.lazySingleton<_i906.PromotionNetworkDts>(
-      () => _i495.PromotionMockedNetworkDts(),
+    gh.lazySingleton<_i1073.BikeMockDB>(
+      () => _i1073.BikeMockDB(),
+      registerFor: {_mocked},
+    );
+    gh.lazySingleton<_i108.PackageMockDB>(
+      () => _i108.PackageMockDB(),
+      registerFor: {_mocked},
+    );
+    gh.lazySingleton<_i495.PromotionMockDB>(
+      () => _i495.PromotionMockDB(),
+      registerFor: {_mocked},
+    );
+    gh.factory<_i328.BikeNetworkDts>(
+      () => _i1073.BikeMockedNetworkDts(gh<_i1073.BikeMockDB>()),
       registerFor: {_mocked},
     );
     gh.lazySingleton<_i700.SessionHandler>(
@@ -155,6 +154,34 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i179.SessionMockedMapper>(),
       ),
       registerFor: {_mocked},
+    );
+    gh.factory<_i884.PackageNetworkDts>(
+      () => _i108.PackageMockedNetworkDts(gh<_i108.PackageMockDB>()),
+      registerFor: {_mocked},
+    );
+    gh.factory<_i541.AuthNetworkDts>(
+      () => _i891.AuthMockedNetworkDts(gh<_i891.AuthMockDB>()),
+      registerFor: {_mocked},
+    );
+    gh.factory<_i906.PromotionNetworkDts>(
+      () => _i495.PromotionMockedNetworkDts(gh<_i495.PromotionMockDB>()),
+      registerFor: {_mocked},
+    );
+    gh.factory<_i221.BikeInterestNetworkDts>(
+      () => _i865.BikeInterestMockedNetworkDts(
+        gh<_i865.BikeInterestMockDB>(),
+        gh<_i700.SessionHandler>(),
+      ),
+      registerFor: {_mocked},
+    );
+    gh.factory<_i427.BikeInterestRepo>(
+      () => _i585.BikeInterestRepoImpl(gh<_i221.BikeInterestNetworkDts>()),
+    );
+    gh.factory<_i802.BikeRepo>(
+      () => _i718.BikeRepoImpl(gh<_i328.BikeNetworkDts>()),
+    );
+    gh.factory<_i369.PackageRepo>(
+      () => _i115.PackageRepoImpl(gh<_i884.PackageNetworkDts>()),
     );
     gh.factory<_i914.AuthRepo>(
       () => _i920.AuthRepoImpl(
@@ -178,16 +205,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i76.PromotionRepo>(
       () => _i14.PromotionRepoImpl(gh<_i906.PromotionNetworkDts>()),
     );
+    gh.factory<_i730.SubmitBikeInterestUsecase>(
+      () => _i730.SubmitBikeInterestUsecase(
+        gh<_i700.SessionHandler>(),
+        gh<_i427.BikeInterestRepo>(),
+      ),
+    );
     gh.factory<_i999.GetPackagesUsecase>(
       () => _i999.GetPackagesUsecase(
         gh<_i700.SessionHandler>(),
         gh<_i369.PackageRepo>(),
-      ),
-    );
-    gh.factory<_i741.RegisterUsecase>(
-      () => _i741.RegisterUsecase(
-        gh<_i700.SessionHandler>(),
-        gh<_i914.AuthRepo>(),
       ),
     );
     gh.factory<_i132.LoginUsecase>(
@@ -197,6 +224,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i410.LogoutUsecase>(
       () =>
           _i410.LogoutUsecase(gh<_i700.SessionHandler>(), gh<_i914.AuthRepo>()),
+    );
+    gh.factory<_i741.RegisterUsecase>(
+      () => _i741.RegisterUsecase(
+        gh<_i700.SessionHandler>(),
+        gh<_i914.AuthRepo>(),
+      ),
+    );
+    gh.factory<_i299.BikeInterestFormCubit>(
+      () => _i299.BikeInterestFormCubit(
+        gh<_i730.SubmitBikeInterestUsecase>(),
+        gh<_i324.GetBikeByIdUsecase>(),
+      ),
     );
     gh.factory<_i903.LoginCubit>(
       () => _i903.LoginCubit(gh<_i132.LoginUsecase>()),

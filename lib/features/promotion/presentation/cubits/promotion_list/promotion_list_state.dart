@@ -1,16 +1,12 @@
 part of 'promotion_list_cubit.dart';
 
-abstract class PromotionListState extends Equatable {
+sealed class PromotionListState extends Equatable {
   const PromotionListState();
 
   @override
   List<Object?> get props => [];
 
   bool get isLoading => this is PromotionListLoading;
-}
-
-class PromotionListInitial extends PromotionListState {
-  const PromotionListInitial();
 }
 
 class PromotionListLoading extends PromotionListState {

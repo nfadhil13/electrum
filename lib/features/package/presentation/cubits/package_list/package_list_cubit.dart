@@ -13,7 +13,7 @@ class PackageListCubit extends Cubit<PackageListState> {
   final GetPackagesUsecase _getPackagesUsecase;
 
   PackageListCubit(this._getPackagesUsecase)
-    : super(const PackageListInitial());
+    : super(const PackageListLoading());
 
   Future<void> loadPackages() async {
     emit(const PackageListLoading());
