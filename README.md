@@ -49,6 +49,16 @@ flutter run -d web-server           # Run on web server (localhost)
 
 The mocked environment is configured via DI (`AppEnvironment.mocked`), so the app is immediately usable with seeded data. No backend setup is required.
 
+## Assumptions
+
+As this app was built in limited time, there are some assumptions made:
+
+1. This app contains no form validation. The app assumes that the user only inputs valid input.
+
+2. This app hasn't managed session well. The app isn't detecting whether the user is logged in or not. Especially when entering the data on bike detail (interest bike), you have to make sure that you are logged in.
+
+3. This app stores all the data in memory. All the data will be gone if the app is killed, or the app is refreshed in web.
+
 ## 2. Architecture Overview
 
 In this app, we use a **Clean Architecture** approach with three main layers: data, domain, and presentation. This layer based architectur keeps each features loosely coupled and makes it easier to swap implementations or add new features without breaking existing ones.
